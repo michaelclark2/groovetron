@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import { RadioBrowserApi, StationSearchOrder } from "radio-browser-api";
-
-const RadioBrowser = new RadioBrowserApi("Radiooo");
+import { useRadioBrowser } from "./context/RadioBrowser";
 
 function App() {
   const [stations, setStations] = useState([]);
   const [nowPlaying, setNowPlaying] = useState([]);
+  const RadioBrowser = useRadioBrowser();
 
   useEffect(() => {
     const getStations = async () => {
