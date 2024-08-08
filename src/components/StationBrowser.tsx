@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useRadioBrowser } from "../context/RadioBrowser";
+import { useRadioBrowser } from "../context/RadioBrowserContext";
 import { Station } from "radio-browser-api";
 export default function StationBrowser({
   nowPlaying,
