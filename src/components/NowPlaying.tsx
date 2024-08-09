@@ -1,5 +1,6 @@
 import { Station } from "radio-browser-api";
 import { useEffect, useState } from "react";
+import { PuffLoader } from "react-spinners";
 
 function Pause({ width, height }: { width: number; height: number }) {
   return (
@@ -38,7 +39,9 @@ function PlayButton({
   playing,
   setPlaying,
   nowPlaying,
+  isLoading,
 }: {
+  isLoading: boolean;
   playing: boolean;
   setPlaying: Function;
   nowPlaying: Station;
@@ -50,9 +53,11 @@ function PlayButton({
           setPlaying(!playing);
         }
       }}
-      className="p-5 m-5 bg-green-500 rounded-full w-20 h-20 flex justify-center items-center"
+      className="p-5 m-5 bg-green-500 rounded-full w-20 h-20 flex justify-center items-center "
     >
-      {playing ? (
+      {isLoading ? (
+        <PuffLoader size={40} />
+      ) : playing ? (
         <Pause width={40} height={40} />
       ) : (
         <Play width={40} height={40} />
@@ -62,13 +67,15 @@ function PlayButton({
 }
 export default function NowPlaying({ nowPlaying }: { nowPlaying: Station }) {
   const [playing, setPlaying] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const audioEl = document.getElementById("nowPlaying");
+
   useEffect(() => {
     if (nowPlaying.name) {
       document.title =
         "Radio" + (nowPlaying?.name ? ": " + nowPlaying.name : "");
       setPlaying(true);
-      audioEl?.play();
+      setIsLoading(true);
     }
   }, [nowPlaying.name]);
 
@@ -77,22 +84,26 @@ export default function NowPlaying({ nowPlaying }: { nowPlaying: Station }) {
   }, [playing]);
 
   return (
-    <div className="m-5 flex justify-center">
+    <div className="my-5 sm:w-1/2 xl:w-1/3 mx-auto">
       <div className="p-5 rounded-3xl flex bg-slate-300 items-center">
-        <img src={nowPlaying.favicon} height={100} width={100} />
-        <div>
+        <div className="w-1/5">
+          <img src={nowPlaying.favicon} height={100} width={100} />
+        </div>
+        <div className="w-1/5 flex justify-center">
           <PlayButton
             playing={playing}
             setPlaying={setPlaying}
             nowPlaying={nowPlaying}
+            isLoading={isLoading}
           />
           <audio
+            onCanPlay={() => setIsLoading(false)}
             id="nowPlaying"
-            src={nowPlaying?.url}
+            src={nowPlaying?.urlResolved}
             autoPlay={playing}
           ></audio>
         </div>
-        <div className="">
+        <div className="w-3/5">
           <h2 className="text-2xl font-bold">{nowPlaying.name ?? "Nothing"}</h2>
           <p>Song Title</p>
           <p>Artist Name</p>
