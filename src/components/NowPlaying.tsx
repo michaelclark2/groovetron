@@ -259,20 +259,6 @@ export default function NowPlaying({ nowPlaying }: { nowPlaying: Station }) {
   const [isCollapsed, setIsCollapsed] = useState(true);
   const audioEl = document.getElementById("nowPlaying") as HTMLAudioElement;
 
-  // useEffect(() => {
-  //   const resetCollapseOnWindowResize = (e: Event) => {
-  //     const window = e.target as Window;
-  //     console.log(window.screen.width);
-  //     if (window.screen.width >= 640 && !isCollapsed) {
-  //       setIsCollapsed(true);
-  //     }
-  //   };
-  //   window.addEventListener("resize", resetCollapseOnWindowResize);
-  //   return () => {
-  //     window.removeEventListener("resize", resetCollapseOnWindowResize);
-  //   };
-  // });
-
   useEffect(() => {
     if (nowPlaying.name) {
       document.title =
