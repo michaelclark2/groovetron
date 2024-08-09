@@ -9,7 +9,7 @@ export default function StationBrowser({
   setNowPlaying: Function;
 }) {
   const RadioBrowser = useRadioBrowser();
-  const [stations, setStations] = useState([]);
+  const [stations, setStations] = useState<Station[]>([]);
   useEffect(() => {
     const getStations = async () => {
       const results = await RadioBrowser.getStationsByRecentClicks(10);

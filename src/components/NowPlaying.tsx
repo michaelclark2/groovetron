@@ -1,5 +1,5 @@
 import { Station } from "radio-browser-api";
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { PuffLoader } from "react-spinners";
 
 function Pause({ width, height }: { width: number; height: number }) {
@@ -191,7 +191,7 @@ function Controls({ audioRef }: { audioRef: HTMLAudioElement }) {
     // TODO: save volume setting to localstorage for persistance
   }, [audioRef]);
 
-  const handleVolumeChange = (e) => {
+  const handleVolumeChange = (e: ChangeEvent) => {
     const input = e.target as HTMLInputElement;
     setCurrentVolume(input.valueAsNumber);
     audioRef.volume = currentVolume;
