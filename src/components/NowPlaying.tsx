@@ -310,7 +310,7 @@ export default function NowPlaying({ nowPlaying }: { nowPlaying: Station }) {
               autoPlay={playing}
             ></audio>
           </div>
-          <div className="w-full">
+          <div className="w-full overflow-hidden">
             <StationTitle station={nowPlaying} />
             <p>Song Title / Artist Name</p>
           </div>
@@ -320,7 +320,7 @@ export default function NowPlaying({ nowPlaying }: { nowPlaying: Station }) {
           >
             {isCollapsed ? <CaretDownIcon /> : <CaretUpIcon />}
           </button>
-          <div className="hidden sm:flex flex-col justify-between ">
+          <div className="hidden sm:flex flex-col justify-between">
             <div className="flex justify-between">
               {options.map((icon) => (
                 <div className="bg-slate-100 rounded-full p-1 mx-1 mb-1 flex justify-center items-center w-[30px] h-[30px]">
