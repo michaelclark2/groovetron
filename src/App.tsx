@@ -9,7 +9,7 @@ function App() {
 
   return (
     <main className="m-2 sm:w-3/4 xl:w-1/2 sm:mx-auto">
-      <h1 className="font-mono text-4xl text-center">Radio</h1>
+      <h1 className="font-mono text-4xl text-center">Groovetron</h1>
       <NowPlaying nowPlaying={nowPlaying} />
       <StationBrowser nowPlaying={nowPlaying} setNowPlaying={setNowPlaying} />
     </main>
