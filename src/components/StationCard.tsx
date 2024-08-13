@@ -1,4 +1,6 @@
 import { Station } from "radio-browser-api";
+import StarIcon from "./icons/StarIcon";
+import HomeIcon from "./icons/HomeIcon";
 type TempStation = Station & { [key: string]: string };
 
 export default function StationCard({
@@ -15,15 +17,22 @@ export default function StationCard({
 
   const tags = ["bitrate", "codec", "votes", "clickCount"];
   return (
-    <div className={"flex p-2 " + (isStationNowPlaying ? activeClasses : "")}>
+    <div
+      className={
+        "flex p-2 rounded-xl bg-slate-200 mb-2" +
+        (isStationNowPlaying ? activeClasses : "")
+      }
+    >
       <button
         onClick={() => setNowPlaying(station)}
-        className="w-1/6 sm:w-1/12 border p-1 border-slate-400"
+        className="w-1/6 sm:w-1/12"
       >
         <img src={station.favicon} height={50} width={50} />
       </button>
-      <div className="w-5/6">
-        <h3 className="font-bold">{station.name}</h3>
+      <div className="ml-2 w-5/6">
+        <h3 className="font-bold overflow-hidden text-nowrap">
+          {station.name}
+        </h3>
         <div className="flex stationTagSection">
           {tags.map((tag) => (
             <div className="mr-1 bg-green-300 p-1 rounded-md text-xs">
@@ -33,8 +42,12 @@ export default function StationCard({
         </div>
       </div>
       <div className="w-1/12 flex flex-col">
-        <button className="bg-blue-500 p-1">Fav</button>
-        <button className="bg-blue-500 p-1">Homepage</button>
+        <button className="bg-blue-500 p-1">
+          <StarIcon />
+        </button>
+        <button className="bg-blue-500 p-1">
+          <HomeIcon />
+        </button>
       </div>
     </div>
   );
