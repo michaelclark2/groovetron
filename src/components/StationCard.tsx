@@ -54,7 +54,7 @@ function StationTags({ station }: { station: Station }) {
     const tagLimit = 5;
 
     let displayedTags = [...tags];
-    if (tags.length >= tagLimit) {
+    if (tags.length > tagLimit) {
       displayedTags = [
         ...displayedTags.slice(0, tagLimit),
         `+${tags.length - tagLimit} more`,
