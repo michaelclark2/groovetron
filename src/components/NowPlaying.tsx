@@ -8,9 +8,10 @@ import CaretDownIcon from "./icons/CaretDownIcon";
 import CaretUpIcon from "./icons/CaretUpIcon";
 import PlayButton from "./PlayButton";
 import VolumeControls from "./VolumeControls";
+import { StationTags } from "./StationCard";
 
 function StationTitle({ station }: { station: Station }) {
-  return <h2 className="text-lg font-bold">{station?.name}</h2>;
+  return <h2 className="text-lg sm:text-xl font-bold">{station?.name}</h2>;
 }
 
 export default function NowPlaying({ nowPlaying }: { nowPlaying: Station }) {

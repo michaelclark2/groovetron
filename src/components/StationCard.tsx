@@ -76,8 +76,8 @@ export default function StationCard({
       >
         <StationCardImage station={station} />
       </button>
-      <div className="w-5/6 flex flex-col justify-between ml-2">
-        <h3 className="font-bold overflow-hidden text-nowrap text-ellipsis">
+      <div className="w-5/6 flex flex-col justify-between ml-2 overflow-hidden">
+        <h3 className="sm:text-xl text-lg font-bold overflow-hidden text-nowrap text-ellipsis">
           {station.name}
         </h3>
         <StationTags station={station} />
