@@ -284,7 +284,7 @@ export default function NowPlaying({ nowPlaying }: { nowPlaying: Station }) {
               setPlaying={setPlaying}
               nowPlaying={nowPlaying}
               isLoading={isLoading}
-              size={30}
+              size={40}
             />
             <audio
               onPlaying={() => {
@@ -309,7 +309,7 @@ export default function NowPlaying({ nowPlaying }: { nowPlaying: Station }) {
           <div className="hidden sm:flex flex-col justify-between">
             <div className="flex justify-between">
               {options.map((icon) => (
-                <div className="bg-slate-100 rounded-full p-1 mx-1 mb-1 flex justify-center items-center w-[30px] h-[30px]">
+                <div className="bg-slate-100 rounded-full p-1 mx-1 mb-3 flex justify-center items-center w-[30px] h-[30px]">
                   {icon}
                 </div>
               ))}
