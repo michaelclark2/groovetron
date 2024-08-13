@@ -8,7 +8,6 @@ import CaretDownIcon from "./icons/CaretDownIcon";
 import CaretUpIcon from "./icons/CaretUpIcon";
 import PlayButton from "./PlayButton";
 import VolumeControls from "./VolumeControls";
-import { StationTags } from "./StationCard";
 
 function StationTitle({ station }: { station: Station }) {
   return <h2 className="text-lg sm:text-xl font-bold">{station?.name}</h2>;
