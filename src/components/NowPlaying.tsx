@@ -10,7 +10,7 @@ import PlayButton from "./PlayButton";
 import VolumeControls from "./VolumeControls";
 
 function StationTitle({ station }: { station: Station }) {
-  return <h2 className="text-lg sm:text-xl font-bold">{station?.name}</h2>;
+  return <h2 className="text-xl sm:text-2xl font-bold">{station?.name}</h2>;
 }
 
 export default function NowPlaying({ nowPlaying }: { nowPlaying: Station }) {
