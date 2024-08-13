@@ -3,6 +3,7 @@ import StarIcon from "./icons/StarIcon";
 import HomeIcon from "./icons/HomeIcon";
 import StationCardImage from "./StationCardImage";
 import { useState } from "react";
+import PlayIcon from "./icons/PlayIcon";
 
 function StationTags({ station }: { station: Station }) {
   const Bitrate = ({ station }: { station: Station }) => {
@@ -40,9 +41,18 @@ function StationTags({ station }: { station: Station }) {
       </div>
     );
   };
+  const ClickCount = ({ station }: { station: Station }) => {
+    return (
+      <div className="bg-yellow-300 p-1 rounded-md text-xs flex items-center">
+        {station?.clickCount}
+        <PlayIcon width={12} height={12} />
+      </div>
+    );
+  };
   return (
     <div className="flex flex-wrap gap-1">
       <Bitrate station={station} />
+      <ClickCount station={station} />
       <CountryTag station={station} />
       {station?.tags?.map((tag) => (
         <div className="bg-green-300 p-1 rounded-md text-xs">{tag}</div>
