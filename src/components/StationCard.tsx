@@ -49,14 +49,29 @@ function StationTags({ station }: { station: Station }) {
       </div>
     );
   };
+  const StationTags = ({ station }: { station: Station }) => {
+    const { tags } = station;
+    const tagLimit = 5;
+
+    let displayedTags = [...tags];
+    if (tags.length >= tagLimit) {
+      console.log(tags);
+      displayedTags = [
+        ...displayedTags.slice(0, tagLimit),
+        `+${tags.length - tagLimit} more`,
+      ];
+    }
+
+    return displayedTags.map((tag) => (
+      <div className="bg-green-300 p-1 rounded-md text-xs">{tag}</div>
+    ));
+  };
   return (
     <div className="flex flex-wrap gap-1">
       <Bitrate station={station} />
       <ClickCount station={station} />
       <CountryTag station={station} />
-      {station?.tags?.map((tag) => (
-        <div className="bg-green-300 p-1 rounded-md text-xs">{tag}</div>
-      ))}
+      <StationTags station={station} />
     </div>
   );
 }
