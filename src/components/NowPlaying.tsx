@@ -36,7 +36,7 @@ export default function NowPlaying({ nowPlaying }: { nowPlaying: Station }) {
 
   return (
     <div className="my-5 mx-auto truncate">
-      <div className="p-4 rounded-3xl flex bg-slate-300 flex-col">
+      <div className="p-4 rounded-xl flex bg-slate-300 flex-col">
         <div className="flex items-start justify-between">
           <div className="flex justify-center mr-4">
             <PlayButton
