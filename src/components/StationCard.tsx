@@ -72,7 +72,7 @@ export default function StationCard({
     >
       <button
         onClick={() => setNowPlaying(station)}
-        className="w-3/12 min-w-12 sm:w-1/12 flex items-center justify-center"
+        className="w-3/12 sm:w-1/12 flex items-center justify-center aspect-square bg-slate-100 rounded-xl overflow-clip"
       >
         <StationCardImage station={station} />
       </button>
