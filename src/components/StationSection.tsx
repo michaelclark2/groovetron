@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
-import { useRadioBrowser } from "../context/RadioBrowserContext";
+import { useState } from "react";
 import { Station } from "radio-browser-api";
-import StationCard from "./StationCard";
+import StationBrowser from "./StationBrowser";
+export type SectionState = string | "browse" | "favs" | "songs";
 
 export default function StationSection({
   nowPlaying,
@@ -10,36 +10,46 @@ export default function StationSection({
   nowPlaying: Station;
   setNowPlaying: Function;
 }) {
-  const RadioBrowser = useRadioBrowser();
-  const [stations, setStations] = useState<Station[]>([]);
+  const [sectionState, setSectionState] = useState<SectionState>("browse");
+  const displayStationSection = (sectionState: SectionState) => {
+    switch (sectionState) {
+      case "browse":
+        return (
+          <StationBrowser
+            nowPlaying={nowPlaying}
+            setNowPlaying={setNowPlaying}
+          />
+        );
 
-  useEffect(() => {
-    const getStations = async () => {
-      const results = await RadioBrowser.getStationsByRecentClicks(10);
-      setStations(results);
-    };
-    getStations();
-  }, []);
+      default:
+        break;
+    }
+  };
 
   return (
     <section>
       <div className="flex justify-between mb-2">
-        <div className="bg-slate-200 rounded-xl p-2 px-6 sm:px-8">
+        <button
+          className="bg-slate-200 rounded-xl p-2 px-6 sm:px-8"
+          onClick={() => setSectionState("favs")}
+        >
           Favorites
-        </div>
-        <div className="bg-slate-200 rounded-xl p-2 px-6 sm:px-8">Browse</div>
-        <div className="bg-slate-200 rounded-xl p-2 px-6 sm:px-8">Songs</div>
+        </button>
+        <button
+          className="bg-slate-200 rounded-xl p-2 px-6 sm:px-8"
+          onClick={() => setSectionState("browse")}
+        >
+          Browse
+        </button>
+        <button
+          className="bg-slate-200 rounded-xl p-2 px-6 sm:px-8"
+          onClick={() => setSectionState("songs")}
+        >
+          Songs
+        </button>
       </div>
-      <h3 className="text-2xl mb-2">Stations</h3>
-      <div>
-        {stations?.map((station) => (
-          <StationCard
-            station={station}
-            nowPlaying={nowPlaying}
-            setNowPlaying={setNowPlaying}
-          />
-        ))}
-      </div>
+
+      <div>{displayStationSection(sectionState)}</div>
     </section>
   );
 }
