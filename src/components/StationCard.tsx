@@ -14,8 +14,10 @@ function StationTags({ station }: { station: Station }) {
     );
   };
   const CountryTag = ({ station }: { station: Station }) => {
+    if (station?.countryCode === "") return;
     const [showTitle, setShowTitle] = useState(false);
     const getFlagEmoji = (countryCode: string) => {
+      // thanks to https://dev.to/jorik/country-code-to-flag-emoji-a21
       const codePoints = countryCode
         .toUpperCase()
         .split("")
@@ -42,7 +44,7 @@ function StationTags({ station }: { station: Station }) {
     <div className="flex flex-wrap gap-1">
       <Bitrate station={station} />
       <CountryTag station={station} />
-      {station?.tags.map((tag) => (
+      {station?.tags?.map((tag) => (
         <div className="bg-green-300 p-1 rounded-md text-xs">{tag}</div>
       ))}
     </div>
