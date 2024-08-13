@@ -26,26 +26,27 @@ export default function StationBrowser({
   }, []);
 
   return (
-    <div>
+    <div className="flex flex-col gap-6">
       <h3 className="text-3xl">Find Stations</h3>
       <div className="w-full flex">
         <input type="text" placeholder="Search" />
       </div>
-
-      <StationsPagination
-        stations={recentClicks}
-        nowPlaying={nowPlaying}
-        setNowPlaying={setNowPlaying}
-        title="Recent Clicks"
-        limit={5}
-      />
-      <StationsPagination
-        stations={topVotes}
-        nowPlaying={nowPlaying}
-        setNowPlaying={setNowPlaying}
-        title="Top Votes"
-        limit={5}
-      />
+      <div className="flex flex-col gap-8">
+        <StationsPagination
+          stations={recentClicks}
+          nowPlaying={nowPlaying}
+          setNowPlaying={setNowPlaying}
+          title="Recent Clicks"
+          limit={5}
+        />
+        <StationsPagination
+          stations={topVotes}
+          nowPlaying={nowPlaying}
+          setNowPlaying={setNowPlaying}
+          title="Top Votes"
+          limit={5}
+        />
+      </div>
     </div>
   );
 }
