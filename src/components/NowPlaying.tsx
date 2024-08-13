@@ -34,6 +34,7 @@ export default function NowPlaying({ nowPlaying }: { nowPlaying: Station }) {
 
   const options = [<SaveIcon />, <StarIcon />, <HomeIcon />, <SettingsIcon />];
 
+  if (Object.keys(nowPlaying).length === 0) return;
   return (
     <div className="my-5 mx-auto truncate">
       <div className="p-4 rounded-xl flex bg-slate-300 flex-col">
