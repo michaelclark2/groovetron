@@ -14,23 +14,23 @@ export default function StationCard({
 }) {
   const isStationNowPlaying = station.id === nowPlaying?.id;
   const activeClasses = "ring ring-blue-500";
-
   const tags = ["bitrate", "codec", "votes", "clickCount"];
+
   return (
     <div
       className={
-        "flex p-2 rounded-xl bg-slate-200 mb-2" +
+        "flex p-2 rounded-xl bg-slate-200 my-2" +
         (isStationNowPlaying ? activeClasses : "")
       }
     >
       <button
         onClick={() => setNowPlaying(station)}
-        className="w-1/6 sm:w-1/12"
+        className="w-1/6 sm:w-1/12 flex items-start"
       >
-        <img src={station.favicon} height={50} width={50} />
+        <img src={station.favicon} />
       </button>
-      <div className="ml-2 w-5/6">
-        <h3 className="font-bold overflow-hidden text-nowrap">
+      <div className="w-5/6 flex flex-col ml-2">
+        <h3 className="font-bold overflow-hidden text-nowrap text-ellipsis">
           {station.name}
         </h3>
         <div className="flex stationTagSection">
@@ -41,11 +41,11 @@ export default function StationCard({
           ))}
         </div>
       </div>
-      <div className="w-1/12 flex flex-col">
-        <button className="bg-blue-500 p-1">
+      <div className="w-1/12 flex flex-col items-end">
+        <button className="">
           <StarIcon />
         </button>
-        <button className="bg-blue-500 p-1">
+        <button className="">
           <HomeIcon />
         </button>
       </div>
