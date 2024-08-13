@@ -1,6 +1,7 @@
 import { Station } from "radio-browser-api";
 import StarIcon from "./icons/StarIcon";
 import HomeIcon from "./icons/HomeIcon";
+import StationCardImage from "./StationCardImage";
 type TempStation = Station & { [key: string]: string };
 
 export default function StationCard({
@@ -19,15 +20,15 @@ export default function StationCard({
   return (
     <div
       className={
-        "flex p-2 rounded-xl bg-slate-200 my-2" +
+        "flex p-2 rounded-xl bg-slate-200 my-2 " +
         (isStationNowPlaying ? activeClasses : "")
       }
     >
       <button
         onClick={() => setNowPlaying(station)}
-        className="w-1/6 sm:w-1/12 flex items-start"
+        className="w-1/6 min-w-12 sm:w-1/12 flex items-center justify-center"
       >
-        <img src={station.favicon} />
+        <StationCardImage station={station} />
       </button>
       <div className="w-5/6 flex flex-col ml-2">
         <h3 className="font-bold overflow-hidden text-nowrap text-ellipsis">
