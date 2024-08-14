@@ -7,6 +7,7 @@ import {
   IconStar,
   IconStarFilled,
 } from "@tabler/icons-react";
+import { useUserData } from "../context/UserContext";
 
 function StationTags({ station }: { station: Station }) {
   const Bitrate = ({ station }: { station: Station }) => {
@@ -98,13 +99,17 @@ export default function StationCard({
   nowPlaying: Station;
   setNowPlaying: Function;
 }) {
+  const { userData, addToFaves, removeFromFaves } = useUserData();
   const isStationNowPlaying = station.id === nowPlaying?.id;
   const activeClasses = "ring ring-blue-500";
+  const isStationInFavs = userData?.favs?.some(
+    (fav: Station) => fav.id === station.id
+  );
 
   return (
     <div
       className={
-        "flex p-2 rounded-xl bg-slate-200 my-4 " +
+        "flex p-2 rounded-xl bg-slate-200 " +
         (isStationNowPlaying ? activeClasses : "")
       }
     >
@@ -121,8 +126,13 @@ export default function StationCard({
         <StationTags station={station} />
       </div>
       <div className="w-1/12 flex flex-col items-end justify-between">
-        <button className="">
-          <IconStar />
+        <button
+          onClick={() =>
+            isStationInFavs ? removeFromFaves(station.id) : addToFaves(station)
+          }
+          className=""
+        >
+          {isStationInFavs ? <IconStarFilled /> : <IconStar />}
         </button>
         <button className="">
           <IconHome />

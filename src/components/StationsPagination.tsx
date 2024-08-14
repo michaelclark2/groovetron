@@ -1,7 +1,7 @@
 import { Station } from "radio-browser-api";
 import StationCard from "./StationCard";
 import { ReactNode, useEffect, useState } from "react";
-import { IconCaretLeft, IconCaretRight } from "@tabler/icons-react";
+import { IconCaretLeftFilled, IconCaretRightFilled } from "@tabler/icons-react";
 
 export default function StationsPagination({
   title,
@@ -51,8 +51,8 @@ export default function StationsPagination({
     setOffset(pageNumber);
   };
   return (
-    <div className="bg-slate-100 rounded-xl p-2">
-      <h3 className="text-xl">{title}</h3>
+    <div className="bg-slate-100 rounded-xl p-2 gap-y-4 flex flex-col">
+      {title !== "" && <h3 className="text-xl">{title}</h3>}
       {currentStations.length
         ? currentStations?.map((station) => (
             <StationCard
@@ -70,27 +70,28 @@ export default function StationsPagination({
             onClick={() => handlePageChange("down")}
             className={offset - 1 < 0 ? "invisible" : ""}
           >
-            <IconCaretLeft />
+            <IconCaretLeftFilled />
           </button>
 
-          {pageBullets.map((bullet, index) => {
-            const activeClasses =
-              offset === index ? "text-blue-500 " : "text-slate-400";
-            return (
-              <button
-                key={index}
-                className={activeClasses}
-                onClick={() => goToPage(index)}
-              >
-                {bullet}
-              </button>
-            );
-          })}
+          {pageBullets.length > 1 ??
+            pageBullets.map((bullet, index) => {
+              const activeClasses =
+                offset === index ? "text-blue-500 " : "text-slate-400";
+              return (
+                <button
+                  key={index}
+                  className={activeClasses}
+                  onClick={() => goToPage(index)}
+                >
+                  {bullet}
+                </button>
+              );
+            })}
           <button
             onClick={() => handlePageChange("up")}
             className={offset + 1 === pageBullets.length ? "invisible" : ""}
           >
-            <IconCaretRight />
+            <IconCaretRightFilled />
           </button>
         </div>
       ) : null}
