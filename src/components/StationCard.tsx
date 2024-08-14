@@ -8,6 +8,7 @@ import {
   IconStarFilled,
 } from "@tabler/icons-react";
 import { useUserData } from "../context/UserContext";
+import { useRadioBrowser } from "../context/RadioBrowserContext";
 
 function StationTags({ station }: { station: Station }) {
   const Bitrate = ({ station }: { station: Station }) => {
@@ -99,6 +100,7 @@ export default function StationCard({
   nowPlaying: Station;
   setNowPlaying: Function;
 }) {
+  const RadioBrowser = useRadioBrowser();
   const { userData, addToFaves, removeFromFaves } = useUserData();
   const isStationNowPlaying = station.id === nowPlaying?.id;
   const activeClasses = "ring ring-blue-500";
@@ -114,7 +116,10 @@ export default function StationCard({
       }
     >
       <button
-        onClick={() => setNowPlaying(station)}
+        onClick={() => {
+          setNowPlaying(station);
+          RadioBrowser.sendStationClick(station.id);
+        }}
         className="w-3/12 sm:w-1/12 flex items-center justify-center aspect-square bg-slate-100 rounded-xl overflow-clip"
       >
         <StationCardImage station={station} />
@@ -127,9 +132,14 @@ export default function StationCard({
       </div>
       <div className="w-1/12 flex flex-col items-end justify-between">
         <button
-          onClick={() =>
-            isStationInFavs ? removeFromFaves(station.id) : addToFaves(station)
-          }
+          onClick={() => {
+            if (isStationInFavs) {
+              removeFromFaves(station.id);
+            } else {
+              addToFaves(station);
+              RadioBrowser.voteForStation(station.id);
+            }
+          }}
           className=""
         >
           {isStationInFavs ? <IconStarFilled /> : <IconStar />}
