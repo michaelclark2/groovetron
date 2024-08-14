@@ -15,6 +15,11 @@ export default function StationCardImage({ station }: { station: Station }) {
     station?.favicon === "" ? getRandomImage(station?.id) : station.favicon;
 
   return (
-    <img src={imgSrc} onError={handleImgError} className="object-contain" />
+    <img
+      src={imgSrc}
+      onError={handleImgError}
+      className="object-contain"
+      loading="lazy"
+    />
   );
 }
