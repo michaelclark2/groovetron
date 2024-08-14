@@ -62,8 +62,7 @@ export default function StationsPagination({
       <div className="flex gap-1 justify-center">
         <button
           onClick={() => handlePageChange("down")}
-          disabled={offset - 1 < 0}
-          className="disabled:text-slate-400"
+          className={offset - 1 < 0 ? "invisible" : ""}
         >
           <CaretLeftIcon />
         </button>
@@ -79,8 +78,7 @@ export default function StationsPagination({
         })}
         <button
           onClick={() => handlePageChange("up")}
-          disabled={offset + 1 === pageBullets.length}
-          className="disabled:text-slate-400"
+          className={offset + 1 === pageBullets.length ? "invisible" : ""}
         >
           <CaretRightIcon />
         </button>
