@@ -65,7 +65,9 @@ function StationTags({ station }: { station: Station }) {
     }
 
     return displayedTags.map((tag) => (
-      <div className="bg-green-300 p-1 rounded-md text-xs">{tag}</div>
+      <div key={tag} className="bg-green-300 p-1 rounded-md text-xs">
+        {tag}
+      </div>
     ));
   };
   const VoteCount = ({ station }: { station: Station }) => {

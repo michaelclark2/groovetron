@@ -56,6 +56,7 @@ export default function StationsPagination({
       {currentStations.length
         ? currentStations?.map((station) => (
             <StationCard
+              key={station.id}
               station={station}
               nowPlaying={nowPlaying}
               setNowPlaying={setNowPlaying}
@@ -76,7 +77,11 @@ export default function StationsPagination({
             const activeClasses =
               offset === index ? "text-blue-500 " : "text-slate-400";
             return (
-              <button className={activeClasses} onClick={() => goToPage(index)}>
+              <button
+                key={index}
+                className={activeClasses}
+                onClick={() => goToPage(index)}
+              >
                 {bullet}
               </button>
             );
