@@ -1,6 +1,6 @@
 import { Station } from "radio-browser-api";
 import StationCard from "./StationCard";
-import { useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import CaretRightIcon from "./icons/CaretRightIcon";
 import CaretLeftIcon from "./icons/CaretLeftIcon";
 
@@ -10,12 +10,14 @@ export default function StationsPagination({
   stations,
   nowPlaying,
   setNowPlaying,
+  emptyMessage,
 }: {
   title: string;
   limit: number;
   stations: Station[];
   nowPlaying: Station;
   setNowPlaying: Function;
+  emptyMessage?: ReactNode;
 }) {
   const [offset, setOffset] = useState(0);
   const [currentStations, setCurrentStations] = useState<Station[]>(stations);
@@ -51,38 +53,43 @@ export default function StationsPagination({
   };
   return (
     <div className="bg-slate-100 rounded-xl p-2">
-      <h3 className="text-2xl">{title}</h3>
-      {currentStations?.map((station) => (
-        <StationCard
-          station={station}
-          nowPlaying={nowPlaying}
-          setNowPlaying={setNowPlaying}
-        />
-      ))}
-      <div className="flex gap-1 justify-center">
-        <button
-          onClick={() => handlePageChange("down")}
-          className={offset - 1 < 0 ? "invisible" : ""}
-        >
-          <CaretLeftIcon />
-        </button>
+      <h3 className="text-xl">{title}</h3>
+      {currentStations.length
+        ? currentStations?.map((station) => (
+            <StationCard
+              station={station}
+              nowPlaying={nowPlaying}
+              setNowPlaying={setNowPlaying}
+            />
+          ))
+        : emptyMessage}
 
-        {pageBullets.map((bullet, index) => {
-          const activeClasses =
-            offset === index ? "text-blue-500 " : "text-slate-400";
-          return (
-            <button className={activeClasses} onClick={() => goToPage(index)}>
-              {bullet}
-            </button>
-          );
-        })}
-        <button
-          onClick={() => handlePageChange("up")}
-          className={offset + 1 === pageBullets.length ? "invisible" : ""}
-        >
-          <CaretRightIcon />
-        </button>
-      </div>
+      {currentStations.length ? (
+        <div className="flex gap-1 justify-center">
+          <button
+            onClick={() => handlePageChange("down")}
+            className={offset - 1 < 0 ? "invisible" : ""}
+          >
+            <CaretLeftIcon />
+          </button>
+
+          {pageBullets.map((bullet, index) => {
+            const activeClasses =
+              offset === index ? "text-blue-500 " : "text-slate-400";
+            return (
+              <button className={activeClasses} onClick={() => goToPage(index)}>
+                {bullet}
+              </button>
+            );
+          })}
+          <button
+            onClick={() => handlePageChange("up")}
+            className={offset + 1 === pageBullets.length ? "invisible" : ""}
+          >
+            <CaretRightIcon />
+          </button>
+        </div>
+      ) : null}
     </div>
   );
 }

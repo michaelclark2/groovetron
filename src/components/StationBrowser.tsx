@@ -17,6 +17,7 @@ export default function StationBrowser({
   const [recentClicks, setRecentClicks] = useState<Station[]>([]);
   const [topVotes, setTopVotes] = useState<Station[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [searchResults, setSearchResults] = useState<Station[]>([]);
 
   useEffect(() => {
     const getStations = async () => {
@@ -30,6 +31,23 @@ export default function StationBrowser({
     getStations();
   }, []);
 
+  useEffect(() => {
+    const debouncedSearchSubmitId = setTimeout(async () => {
+      if (searchTerm === "") {
+        setSearchResults([]);
+        return;
+      }
+      setIsLoading(true);
+      const results = await RadioBrowser.searchStations({
+        name: searchTerm,
+        limit: 300,
+      });
+      setSearchResults(results);
+      setIsLoading(false);
+    }, 500);
+    return () => clearTimeout(debouncedSearchSubmitId);
+  }, [searchTerm]);
+
   const handleSearchChange = (e: ChangeEvent) => {
     const { value } = e.target as HTMLInputElement;
     setSearchTerm(value);
@@ -38,6 +56,39 @@ export default function StationBrowser({
   const handleFormSubmit = (e: FormEvent) => {
     e.preventDefault();
   };
+
+  const displayedStations =
+    searchResults.length || searchTerm ? (
+      <StationsPagination
+        stations={searchResults}
+        nowPlaying={nowPlaying}
+        setNowPlaying={setNowPlaying}
+        title={
+          "Search results for " + searchTerm + ` (${searchResults.length})`
+        }
+        limit={12}
+        emptyMessage={
+          <p className="py-4">No stations found with the name {searchTerm}</p>
+        }
+      />
+    ) : (
+      <>
+        <StationsPagination
+          stations={recentClicks}
+          nowPlaying={nowPlaying}
+          setNowPlaying={setNowPlaying}
+          title="Recent Clicks"
+          limit={5}
+        />
+        <StationsPagination
+          stations={topVotes}
+          nowPlaying={nowPlaying}
+          setNowPlaying={setNowPlaying}
+          title="Top Votes"
+          limit={5}
+        />
+      </>
+    );
 
   return (
     <div className="flex flex-col gap-6 bg-slate-200 rounded-xl p-2">
@@ -64,22 +115,7 @@ export default function StationBrowser({
         {isLoading ? (
           <RingLoader className="self-center" size={200} />
         ) : (
-          <>
-            <StationsPagination
-              stations={recentClicks}
-              nowPlaying={nowPlaying}
-              setNowPlaying={setNowPlaying}
-              title="Recent Clicks"
-              limit={5}
-            />
-            <StationsPagination
-              stations={topVotes}
-              nowPlaying={nowPlaying}
-              setNowPlaying={setNowPlaying}
-              title="Top Votes"
-              limit={5}
-            />
-          </>
+          displayedStations
         )}
       </div>
     </div>
