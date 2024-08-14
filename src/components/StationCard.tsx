@@ -43,7 +43,7 @@ function StationTags({ station }: { station: Station }) {
   };
   const ClickCount = ({ station }: { station: Station }) => {
     return (
-      <div className="bg-yellow-300 p-1 rounded-md text-xs flex items-center">
+      <div className="bg-orange-300 p-1 rounded-md text-xs flex items-center">
         {station?.clickCount}
         <PlayIcon width={12} height={12} />
       </div>
@@ -65,9 +65,18 @@ function StationTags({ station }: { station: Station }) {
       <div className="bg-green-300 p-1 rounded-md text-xs">{tag}</div>
     ));
   };
+  const VoteCount = ({ station }: { station: Station }) => {
+    return (
+      <div className="bg-yellow-300 p-1 rounded-md text-xs flex items-center">
+        {station?.votes}
+        <StarIcon width={12} height={12} />
+      </div>
+    );
+  };
   return (
     <div className="flex flex-wrap gap-1">
       <Bitrate station={station} />
+      <VoteCount station={station} />
       <ClickCount station={station} />
       <CountryTag station={station} />
       <StationTags station={station} />
