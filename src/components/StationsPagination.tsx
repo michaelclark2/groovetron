@@ -73,7 +73,7 @@ export default function StationsPagination({
             <IconCaretLeftFilled />
           </button>
 
-          {pageBullets.length > 1 ??
+          {pageBullets.length > 1 &&
             pageBullets.map((bullet, index) => {
               const activeClasses =
                 offset === index ? "text-blue-500 " : "text-slate-400";
