@@ -1,9 +1,12 @@
 import { Station } from "radio-browser-api";
-import StarIcon from "./icons/StarIcon";
-import HomeIcon from "./icons/HomeIcon";
 import StationCardImage from "./StationCardImage";
 import { useState } from "react";
-import PlayIcon from "./icons/PlayIcon";
+import {
+  IconHome,
+  IconPlayerPlayFilled,
+  IconStar,
+  IconStarFilled,
+} from "@tabler/icons-react";
 
 function StationTags({ station }: { station: Station }) {
   const Bitrate = ({ station }: { station: Station }) => {
@@ -45,7 +48,7 @@ function StationTags({ station }: { station: Station }) {
     return (
       <div className="bg-orange-300 p-1 rounded-md text-xs flex items-center">
         {station?.clickCount}
-        <PlayIcon width={12} height={12} />
+        <IconPlayerPlayFilled size={12} />
       </div>
     );
   };
@@ -69,7 +72,7 @@ function StationTags({ station }: { station: Station }) {
     return (
       <div className="bg-yellow-300 p-1 rounded-md text-xs flex items-center">
         {station?.votes}
-        <StarIcon width={12} height={12} />
+        <IconStarFilled size={12} />
       </div>
     );
   };
@@ -117,10 +120,10 @@ export default function StationCard({
       </div>
       <div className="w-1/12 flex flex-col items-end justify-between">
         <button className="">
-          <StarIcon />
+          <IconStar />
         </button>
         <button className="">
-          <HomeIcon />
+          <IconHome />
         </button>
       </div>
     </div>

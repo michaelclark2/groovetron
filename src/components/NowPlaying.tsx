@@ -1,13 +1,15 @@
 import { Station } from "radio-browser-api";
 import { useEffect, useState } from "react";
-import StarIcon from "./icons/StarIcon";
-import SaveIcon from "./icons/SaveIcon";
-import HomeIcon from "./icons/HomeIcon";
-import SettingsIcon from "./icons/SettingsIcon";
-import CaretDownIcon from "./icons/CaretDownIcon";
-import CaretUpIcon from "./icons/CaretUpIcon";
 import PlayButton from "./PlayButton";
 import VolumeControls from "./VolumeControls";
+import {
+  IconCaretDown,
+  IconCaretUp,
+  IconDeviceFloppy,
+  IconHome,
+  IconSettings,
+  IconStar,
+} from "@tabler/icons-react";
 
 function StationTitle({ station }: { station: Station }) {
   return <h2 className="text-xl sm:text-2xl font-bold">{station?.name}</h2>;
@@ -32,7 +34,12 @@ export default function NowPlaying({ nowPlaying }: { nowPlaying: Station }) {
     playing ? audioEl?.play() : audioEl?.pause();
   }, [playing]);
 
-  const options = [<SaveIcon />, <StarIcon />, <HomeIcon />, <SettingsIcon />];
+  const options = [
+    <IconDeviceFloppy />,
+    <IconStar />,
+    <IconHome />,
+    <IconSettings />,
+  ];
 
   if (Object.keys(nowPlaying).length === 0) return;
   return (
@@ -65,7 +72,7 @@ export default function NowPlaying({ nowPlaying }: { nowPlaying: Station }) {
             className="bg-slate-200 rounded-full sm:hidden"
             onClick={() => setIsCollapsed(!isCollapsed)}
           >
-            {isCollapsed ? <CaretDownIcon /> : <CaretUpIcon />}
+            {isCollapsed ? <IconCaretDown /> : <IconCaretUp />}
           </button>
           <div className="hidden sm:flex flex-col justify-between">
             <div className="flex justify-between">

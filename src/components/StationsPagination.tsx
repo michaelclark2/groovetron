@@ -1,8 +1,7 @@
 import { Station } from "radio-browser-api";
 import StationCard from "./StationCard";
 import { ReactNode, useEffect, useState } from "react";
-import CaretRightIcon from "./icons/CaretRightIcon";
-import CaretLeftIcon from "./icons/CaretLeftIcon";
+import { IconCaretLeft, IconCaretRight } from "@tabler/icons-react";
 
 export default function StationsPagination({
   title,
@@ -70,7 +69,7 @@ export default function StationsPagination({
             onClick={() => handlePageChange("down")}
             className={offset - 1 < 0 ? "invisible" : ""}
           >
-            <CaretLeftIcon />
+            <IconCaretLeft />
           </button>
 
           {pageBullets.map((bullet, index) => {
@@ -86,7 +85,7 @@ export default function StationsPagination({
             onClick={() => handlePageChange("up")}
             className={offset + 1 === pageBullets.length ? "invisible" : ""}
           >
-            <CaretRightIcon />
+            <IconCaretRight />
           </button>
         </div>
       ) : null}

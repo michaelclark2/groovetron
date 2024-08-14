@@ -1,7 +1,9 @@
 import { Station } from "radio-browser-api";
 import { PuffLoader } from "react-spinners";
-import StopIcon from "./icons/StopIcon";
-import PlayIcon from "./icons/PlayIcon";
+import {
+  IconPlayerPlayFilled,
+  IconPlayerStopFilled,
+} from "@tabler/icons-react";
 
 export default function PlayButton({
   playing,
@@ -30,9 +32,9 @@ export default function PlayButton({
       {isLoading ? (
         <PuffLoader size={size} color="green" />
       ) : playing ? (
-        <StopIcon width={size} height={size} />
+        <IconPlayerStopFilled size={size} />
       ) : (
-        <PlayIcon width={size} height={size} />
+        <IconPlayerPlayFilled width={size} height={size} />
       )}
     </button>
   );
