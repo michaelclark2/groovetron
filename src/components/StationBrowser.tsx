@@ -40,7 +40,7 @@ export default function StationBrowser({
       setIsLoading(true);
       const results = await RadioBrowser.searchStations({
         name: searchTerm,
-        limit: 300,
+        limit: 300, // TODO: remove this, and truncate bullets in StationsPagination
       });
       setSearchResults(results);
       setIsLoading(false);
