@@ -21,6 +21,10 @@ export default function StationSection({
           />
         );
 
+      case "favs":
+        break;
+      case "songs":
+        break;
       default:
         break;
     }
@@ -28,7 +32,7 @@ export default function StationSection({
 
   return (
     <section>
-      <div className="flex justify-between mb-2">
+      <div className="flex justify-between mb-2 sm:justify-around">
         <button
           className="bg-slate-200 rounded-xl p-2 px-6 sm:px-8"
           onClick={() => setSectionState("favs")}
