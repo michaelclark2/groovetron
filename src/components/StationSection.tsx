@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Station } from "radio-browser-api";
 import StationBrowser from "./StationBrowser";
+import FavoritesBrowser from "./FavoritesBrowser";
 export type SectionState = string | "browse" | "favs" | "songs";
 
 export default function StationSection({
@@ -22,6 +23,12 @@ export default function StationSection({
         );
 
       case "favs":
+        return (
+          <FavoritesBrowser
+            nowPlaying={nowPlaying}
+            setNowPlaying={setNowPlaying}
+          />
+        );
         break;
       case "songs":
         break;
