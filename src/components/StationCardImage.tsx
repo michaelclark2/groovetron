@@ -1,4 +1,4 @@
-import { Station } from "radio-browser-api";
+import { Station } from "../types";
 import { generateFromString } from "generate-avatar";
 import { SyntheticEvent } from "react";
 

@@ -1,4 +1,4 @@
-import { Station } from "radio-browser-api";
+import { Station } from "../types";
 import { PuffLoader } from "react-spinners";
 import {
   IconPlayerPlayFilled,

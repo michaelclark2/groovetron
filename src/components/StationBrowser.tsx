@@ -1,4 +1,4 @@
-import { Station } from "radio-browser-api";
+import { Station } from "../types";
 import { useRadioBrowser } from "../context/RadioBrowserContext";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import StationsPagination from "./StationsPagination";

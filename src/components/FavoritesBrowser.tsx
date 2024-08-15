@@ -1,4 +1,4 @@
-import { Station } from "radio-browser-api";
+import { Station } from "../types";
 import { useUserData } from "../context/UserContext";
 import StationsPagination from "./StationsPagination";
 

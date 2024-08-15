@@ -1,4 +1,4 @@
-import { Station } from "radio-browser-api";
+import { Station } from "../types";
 import { useEffect, useState } from "react";
 import PlayButton from "./PlayButton";
 import VolumeControls from "./VolumeControls";

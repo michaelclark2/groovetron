@@ -1,4 +1,4 @@
-import { Station } from "radio-browser-api";
+import { Station } from "../types";
 import StationCard from "./StationCard";
 import { ReactNode, useEffect, useState } from "react";
 import { IconCaretLeftFilled, IconCaretRightFilled } from "@tabler/icons-react";

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Station } from "radio-browser-api";
+import { Station } from "../types";
 import StationBrowser from "./StationBrowser";
 import FavoritesBrowser from "./FavoritesBrowser";
 export type SectionState = string | "browse" | "favs" | "songs";
