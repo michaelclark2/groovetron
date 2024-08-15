@@ -11,13 +11,15 @@ import {
   IconStar,
 } from "@tabler/icons-react";
 
+import IcecastMetadataPlayer from "icecast-metadata-player";
+import { usePlayer } from "../context/PlayerContext";
+
 function StationTitle({ station }: { station: Station }) {
   return <h2 className="text-xl sm:text-2xl font-bold">{station?.name}</h2>;
 }
 
-export default function NowPlaying({ nowPlaying }: { nowPlaying: Station }) {
-  const [playing, setPlaying] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+export default function NowPlaying() {
+  const { nowPlaying, player } = usePlayer();
   const [isCollapsed, setIsCollapsed] = useState(true);
   const audioEl = document.getElementById("nowPlaying") as HTMLAudioElement;
 
@@ -25,14 +27,8 @@ export default function NowPlaying({ nowPlaying }: { nowPlaying: Station }) {
     if (nowPlaying.name) {
       document.title =
         "Radio" + (nowPlaying?.name ? ": " + nowPlaying.name : "");
-      setIsLoading(true);
-      setPlaying(true);
     }
   }, [nowPlaying.name]);
-
-  useEffect(() => {
-    playing ? audioEl?.play() : audioEl?.pause();
-  }, [playing]);
 
   const options = [
     <IconDeviceFloppy />,
@@ -47,22 +43,7 @@ export default function NowPlaying({ nowPlaying }: { nowPlaying: Station }) {
       <div className="p-4 rounded-xl flex bg-slate-300 flex-col">
         <div className="flex items-start justify-between">
           <div className="flex justify-center mr-4">
-            <PlayButton
-              playing={playing}
-              setPlaying={setPlaying}
-              nowPlaying={nowPlaying}
-              isLoading={isLoading}
-              size={40}
-            />
-            <audio
-              onPlaying={() => {
-                setPlaying(true);
-                setIsLoading(false);
-              }}
-              id="nowPlaying"
-              src={nowPlaying?.urlResolved}
-              autoPlay={playing}
-            ></audio>
+            <PlayButton size={40} />
           </div>
           <div className="w-full overflow-hidden">
             <StationTitle station={nowPlaying} />

@@ -1,35 +1,16 @@
 import { useState } from "react";
-import { Station } from "radio-browser-api";
 import StationBrowser from "./StationBrowser";
 import FavoritesBrowser from "./FavoritesBrowser";
 export type SectionState = string | "browse" | "favs" | "songs";
 
-export default function StationSection({
-  nowPlaying,
-  setNowPlaying,
-}: {
-  nowPlaying: Station;
-  setNowPlaying: Function;
-}) {
+export default function StationSection() {
   const [sectionState, setSectionState] = useState<SectionState>("browse");
   const displayStationSection = (sectionState: SectionState) => {
     switch (sectionState) {
       case "browse":
-        return (
-          <StationBrowser
-            nowPlaying={nowPlaying}
-            setNowPlaying={setNowPlaying}
-          />
-        );
-
+        return <StationBrowser />;
       case "favs":
-        return (
-          <FavoritesBrowser
-            nowPlaying={nowPlaying}
-            setNowPlaying={setNowPlaying}
-          />
-        );
-        break;
+        return <FavoritesBrowser />;
       case "songs":
         break;
       default:

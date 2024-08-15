@@ -7,15 +7,11 @@ export default function StationsPagination({
   title,
   limit,
   stations,
-  nowPlaying,
-  setNowPlaying,
   emptyMessage,
 }: {
   title: string;
   limit: number;
   stations: Station[];
-  nowPlaying: Station;
-  setNowPlaying: Function;
   emptyMessage?: ReactNode;
 }) {
   const [offset, setOffset] = useState(0);
@@ -55,12 +51,7 @@ export default function StationsPagination({
       {title !== "" && <h3 className="text-xl">{title}</h3>}
       {currentStations.length
         ? currentStations?.map((station) => (
-            <StationCard
-              key={station.id}
-              station={station}
-              nowPlaying={nowPlaying}
-              setNowPlaying={setNowPlaying}
-            />
+            <StationCard key={station.id} station={station} />
           ))
         : emptyMessage}
 

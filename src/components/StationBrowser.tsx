@@ -5,13 +5,7 @@ import StationsPagination from "./StationsPagination";
 import { RingLoader } from "react-spinners";
 import { IconFilterCog, IconSearch } from "@tabler/icons-react";
 
-export default function StationBrowser({
-  nowPlaying,
-  setNowPlaying,
-}: {
-  nowPlaying: Station;
-  setNowPlaying: Function;
-}) {
+export default function StationBrowser() {
   const RadioBrowser = useRadioBrowser();
   const [isLoading, setIsLoading] = useState(true);
   const [recentClicks, setRecentClicks] = useState<Station[]>([]);
@@ -61,8 +55,6 @@ export default function StationBrowser({
     searchResults.length || searchTerm ? (
       <StationsPagination
         stations={searchResults}
-        nowPlaying={nowPlaying}
-        setNowPlaying={setNowPlaying}
         title={
           "Search results for " + searchTerm + ` (${searchResults.length})`
         }
@@ -75,18 +67,10 @@ export default function StationBrowser({
       <>
         <StationsPagination
           stations={recentClicks}
-          nowPlaying={nowPlaying}
-          setNowPlaying={setNowPlaying}
           title="Recent Clicks"
           limit={5}
         />
-        <StationsPagination
-          stations={topVotes}
-          nowPlaying={nowPlaying}
-          setNowPlaying={setNowPlaying}
-          title="Top Votes"
-          limit={5}
-        />
+        <StationsPagination stations={topVotes} title="Top Votes" limit={5} />
       </>
     );
 

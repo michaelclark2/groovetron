@@ -1,29 +1,16 @@
-import { Station } from "radio-browser-api";
 import { PuffLoader } from "react-spinners";
 import {
   IconPlayerPlayFilled,
   IconPlayerStopFilled,
 } from "@tabler/icons-react";
+import { usePlayer } from "../context/PlayerContext";
 
-export default function PlayButton({
-  playing,
-  setPlaying,
-  nowPlaying,
-  isLoading,
-  size,
-}: {
-  isLoading: boolean;
-  playing: boolean;
-  setPlaying: Function;
-  nowPlaying: Station;
-  size: number;
-}) {
+export default function PlayButton({ size }: { size: number }) {
+  const { player, isPlaying, isLoading } = usePlayer();
   return (
     <button
       onClick={() => {
-        if (nowPlaying?.id != null) {
-          setPlaying(!playing);
-        }
+        player.state === "playing" ? player.stop() : player.play();
       }}
       className={`p-4 bg-green-500 rounded-full h-[${
         size * 2
@@ -31,10 +18,10 @@ export default function PlayButton({
     >
       {isLoading ? (
         <PuffLoader size={size} color="green" />
-      ) : playing ? (
+      ) : player.state === "playing" ? (
         <IconPlayerStopFilled size={size} />
       ) : (
-        <IconPlayerPlayFilled width={size} height={size} />
+        <IconPlayerPlayFilled size={size} />
       )}
     </button>
   );

@@ -9,6 +9,7 @@ import {
 } from "@tabler/icons-react";
 import { useUserData } from "../context/UserContext";
 import { useRadioBrowser } from "../context/RadioBrowserContext";
+import { usePlayer } from "../context/PlayerContext";
 
 function StationTags({ station }: { station: Station }) {
   const Bitrate = ({ station }: { station: Station }) => {
@@ -91,17 +92,10 @@ function StationTags({ station }: { station: Station }) {
   );
 }
 
-export default function StationCard({
-  station,
-  nowPlaying,
-  setNowPlaying,
-}: {
-  station: Station;
-  nowPlaying: Station;
-  setNowPlaying: Function;
-}) {
+export default function StationCard({ station }: { station: Station }) {
   const RadioBrowser = useRadioBrowser();
   const { userData, addToFaves, removeFromFaves } = useUserData();
+  const { player, nowPlaying, setNowPlaying } = usePlayer();
   const isStationNowPlaying = station.id === nowPlaying?.id;
   const activeClasses = "ring ring-blue-500";
   const isStationInFavs = userData?.favs?.some(
@@ -117,8 +111,12 @@ export default function StationCard({
     >
       <button
         onClick={() => {
-          setNowPlaying(station);
-          RadioBrowser.sendStationClick(station.id);
+          player.switchEndpoint(station.urlResolved).then(() => {
+            console.log("switched endpoints");
+            setNowPlaying(station);
+            RadioBrowser.sendStationClick(station.id);
+            player.play();
+          });
         }}
         className="w-3/12 sm:w-1/12 flex items-center justify-center aspect-square bg-slate-100 rounded-xl overflow-clip"
       >

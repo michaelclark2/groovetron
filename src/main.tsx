@@ -4,13 +4,16 @@ import App from "./App.tsx";
 import "./index.css";
 import { RadioBrowserProvider } from "./context/RadioBrowserContext.tsx";
 import { UserContextProvider } from "./context/UserContext.tsx";
+import { PlayerContextProvider } from "./context/PlayerContext.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <UserContextProvider>
-      <RadioBrowserProvider>
-        <App />
-      </RadioBrowserProvider>
+      <PlayerContextProvider>
+        <RadioBrowserProvider>
+          <App />
+        </RadioBrowserProvider>
+      </PlayerContextProvider>
     </UserContextProvider>
   </StrictMode>
 );
