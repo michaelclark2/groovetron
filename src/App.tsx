@@ -2,7 +2,7 @@ import { useState } from "react";
 import "./App.css";
 import StationSection from "./components/StationSection";
 import NowPlaying from "./components/NowPlaying";
-import { Station } from "radio-browser-api";
+import { Station } from "./types";
 
 function App() {
   return (

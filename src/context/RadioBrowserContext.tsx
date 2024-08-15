@@ -1,9 +1,9 @@
 import { createContext, useContext } from "react";
+// @ts-ignore
 import { RadioBrowserApi } from "radio-browser-api";
 import { name, version } from "../../package.json";
 
 const RadioBrowserContext = createContext({} as RadioBrowserApi);
-
 export function RadioBrowserProvider({ children }: { children: any }) {
   const RadioBrowser = new RadioBrowserApi(`${name}/${version}`);
 
