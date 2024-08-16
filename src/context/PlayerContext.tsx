@@ -62,7 +62,7 @@ export function PlayerContextProvider({ children }: { children: any }) {
   }, [nowPlaying]);
 
   useEffect(() => {
-    player.endpoint ?? player.play();
+    player.endpoint && player.play();
   }, [player]);
   return (
     <PlayerContext.Provider
