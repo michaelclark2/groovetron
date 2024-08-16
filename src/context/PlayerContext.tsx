@@ -1,7 +1,8 @@
 import IcecastMetadataPlayer, {
   IcecastMetadataPlayerIcyOggOptionsWithCallbacks,
+  IcecastMetadataPlayerOggOptionsWithCallbacks,
 } from "icecast-metadata-player";
-import { Station } from "radio-browser-api";
+import { Station } from "../types";
 import { createContext, useContext, useEffect, useState } from "react";
 
 const PlayerContext = createContext(
@@ -11,6 +12,7 @@ const PlayerContext = createContext(
     setNowPlaying: Function;
     isPlaying: boolean;
     isLoading: boolean;
+    audioRef: HTMLAudioElement;
   }
 );
 
@@ -19,10 +21,16 @@ export function PlayerContextProvider({ children }: { children: any }) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [songPlaying, setSongPlaying] = useState({} as any);
+  const [audioRef, setAudioRef] = useState(new Audio());
   const playerOptions: IcecastMetadataPlayerIcyOggOptionsWithCallbacks = {
+    audioElement: audioRef,
     metadataTypes: ["icy", "ogg"],
+    bufferLength: 3,
     enableLogging: true,
     onSwitch() {
+      setIsLoading(true);
+    },
+    onLoad: () => {
       setIsLoading(true);
     },
     onPlay: () => {
@@ -33,18 +41,39 @@ export function PlayerContextProvider({ children }: { children: any }) {
       setIsPlaying(false);
     },
     onMetadata: (value: any) => {
-      console.log("onMetadata");
-      console.log(value);
       setSongPlaying(value);
     },
-  };
-  const [player, setPlayer] = useState(
-    new IcecastMetadataPlayer("", playerOptions)
-  );
 
+    onError: () => {
+      // handle errors
+    },
+  };
+  const [player, setPlayer] = useState({} as IcecastMetadataPlayer);
+
+  useEffect(() => {
+    if (nowPlaying.urlResolved) {
+      if (player.endpoint) {
+        player.detachAudioElement();
+      }
+      setPlayer(
+        new IcecastMetadataPlayer(nowPlaying.urlResolved, playerOptions)
+      );
+    }
+  }, [nowPlaying]);
+
+  useEffect(() => {
+    player.endpoint && player.play();
+  }, [player]);
   return (
     <PlayerContext.Provider
-      value={{ player, nowPlaying, setNowPlaying, isPlaying, isLoading }}
+      value={{
+        player,
+        nowPlaying,
+        setNowPlaying,
+        isPlaying,
+        isLoading,
+        audioRef,
+      }}
     >
       {children}
     </PlayerContext.Provider>

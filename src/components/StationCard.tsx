@@ -111,12 +111,8 @@ export default function StationCard({ station }: { station: Station }) {
     >
       <button
         onClick={() => {
-          player.switchEndpoint(station.urlResolved).then(() => {
-            console.log("switched endpoints");
-            setNowPlaying(station);
-            RadioBrowser.sendStationClick(station.id);
-            player.play();
-          });
+          setNowPlaying(station);
+          RadioBrowser.sendStationClick(station.id);
         }}
         className="w-3/12 sm:w-1/12 flex items-center justify-center aspect-square bg-slate-100 rounded-xl overflow-clip"
       >

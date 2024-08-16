@@ -11,7 +11,6 @@ import {
   IconStar,
 } from "@tabler/icons-react";
 
-import IcecastMetadataPlayer from "icecast-metadata-player";
 import { usePlayer } from "../context/PlayerContext";
 
 function StationTitle({ station }: { station: Station }) {
@@ -19,7 +18,7 @@ function StationTitle({ station }: { station: Station }) {
 }
 
 export default function NowPlaying() {
-  const { nowPlaying, player } = usePlayer();
+  const { nowPlaying } = usePlayer();
   const [isCollapsed, setIsCollapsed] = useState(true);
   const audioEl = document.getElementById("nowPlaying") as HTMLAudioElement;
 

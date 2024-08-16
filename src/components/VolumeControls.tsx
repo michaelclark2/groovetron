@@ -1,12 +1,10 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { IconVolume, IconVolume2, IconVolume3 } from "@tabler/icons-react";
+import { usePlayer } from "../context/PlayerContext";
 
-export default function VolumeControls({
-  audioRef,
-}: {
-  audioRef: HTMLAudioElement;
-}) {
+export default function VolumeControls() {
   const [currentVolume, setCurrentVolume] = useState(0);
+  const { audioRef } = usePlayer();
 
   useEffect(() => {
     setCurrentVolume(audioRef?.volume);
