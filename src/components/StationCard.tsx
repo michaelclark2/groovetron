@@ -95,7 +95,7 @@ function StationTags({ station }: { station: Station }) {
 export default function StationCard({ station }: { station: Station }) {
   const RadioBrowser = useRadioBrowser();
   const { userData, addToFaves, removeFromFaves } = useUserData();
-  const { player, nowPlaying, setNowPlaying } = usePlayer();
+  const { nowPlaying, setNowPlaying } = usePlayer();
   const isStationNowPlaying = station.id === nowPlaying?.id;
   const activeClasses = "ring ring-blue-500";
   const isStationInFavs = userData?.favs?.some(

@@ -6,7 +6,7 @@ import {
 import { usePlayer } from "../context/PlayerContext";
 
 export default function PlayButton({ size }: { size: number }) {
-  const { player, isPlaying, isLoading } = usePlayer();
+  const { player, isLoading } = usePlayer();
   return (
     <button
       onClick={() => {

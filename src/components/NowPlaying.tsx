@@ -20,7 +20,6 @@ function StationTitle({ station }: { station: Station }) {
 export default function NowPlaying() {
   const { nowPlaying } = usePlayer();
   const [isCollapsed, setIsCollapsed] = useState(true);
-  const audioEl = document.getElementById("nowPlaying") as HTMLAudioElement;
 
   useEffect(() => {
     if (nowPlaying.name) {
@@ -62,7 +61,7 @@ export default function NowPlaying() {
                 </div>
               ))}
             </div>
-            <VolumeControls audioRef={audioEl} />
+            <VolumeControls />
           </div>
         </div>
         {isCollapsed ? null : (
@@ -76,7 +75,7 @@ export default function NowPlaying() {
                 ))}
               </div>
               <div className="w-1/2">
-                <VolumeControls audioRef={audioEl} />
+                <VolumeControls />
               </div>
             </div>
           </div>

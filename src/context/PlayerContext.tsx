@@ -1,6 +1,5 @@
 import IcecastMetadataPlayer, {
   IcecastMetadataPlayerIcyOggOptionsWithCallbacks,
-  IcecastMetadataPlayerOggOptionsWithCallbacks,
 } from "icecast-metadata-player";
 import { Station } from "../types";
 import { createContext, useContext, useEffect, useState } from "react";
@@ -21,7 +20,7 @@ export function PlayerContextProvider({ children }: { children: any }) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [songPlaying, setSongPlaying] = useState({} as any);
-  const [audioRef, setAudioRef] = useState(new Audio());
+  const [audioRef] = useState(new Audio());
   const playerOptions: IcecastMetadataPlayerIcyOggOptionsWithCallbacks = {
     audioElement: audioRef,
     metadataTypes: ["icy", "ogg"],
@@ -42,6 +41,7 @@ export function PlayerContextProvider({ children }: { children: any }) {
     },
     onMetadata: (value: any) => {
       setSongPlaying(value);
+      console.log(songPlaying);
     },
 
     onError: () => {
@@ -62,7 +62,7 @@ export function PlayerContextProvider({ children }: { children: any }) {
   }, [nowPlaying]);
 
   useEffect(() => {
-    player.endpoint && player.play();
+    player.endpoint ?? player.play();
   }, [player]);
   return (
     <PlayerContext.Provider
