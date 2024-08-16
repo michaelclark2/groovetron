@@ -1,4 +1,4 @@
-import { Station } from "../types";
+import { Station } from "radio-browser-api";
 import { createContext, useContext, useEffect, useState } from "react";
 
 class UserData {

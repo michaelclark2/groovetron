@@ -1,4 +1,4 @@
-import { Station } from "../types";
+import { Station } from "radio-browser-api";
 import StationCardImage from "./StationCardImage";
 import { useState } from "react";
 import {

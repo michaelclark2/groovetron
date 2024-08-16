@@ -1,7 +1,7 @@
 import IcecastMetadataPlayer, {
   IcecastMetadataPlayerIcyOggOptionsWithCallbacks,
 } from "icecast-metadata-player";
-import { Station } from "../types";
+import { Station } from "radio-browser-api";
 import { createContext, useContext, useEffect, useState } from "react";
 
 const PlayerContext = createContext(
