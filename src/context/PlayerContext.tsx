@@ -1,15 +1,12 @@
-import IcecastMetadataPlayer, {
-  IcecastMetadataPlayerIcyOggOptionsWithCallbacks,
-} from "icecast-metadata-player";
 import { Station } from "radio-browser-api";
 import { createContext, useContext, useEffect, useState } from "react";
 
 const PlayerContext = createContext(
   {} as {
-    player: IcecastMetadataPlayer;
     nowPlaying: Station;
     setNowPlaying: Function;
     isPlaying: boolean;
+    setIsPlaying: Function;
     isLoading: boolean;
     audioRef: HTMLAudioElement;
   }
@@ -17,60 +14,36 @@ const PlayerContext = createContext(
 
 export function PlayerContextProvider({ children }: { children: any }) {
   const [nowPlaying, setNowPlaying] = useState({} as Station);
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
-  const [songPlaying, setSongPlaying] = useState({} as any);
-  const [audioRef] = useState(new Audio());
-  const playerOptions: IcecastMetadataPlayerIcyOggOptionsWithCallbacks = {
-    audioElement: audioRef,
-    metadataTypes: ["icy", "ogg"],
-    bufferLength: 3,
-    enableLogging: true,
-    onSwitch() {
-      setIsLoading(true);
-    },
-    onLoad: () => {
-      setIsLoading(true);
-    },
-    onPlay: () => {
-      setIsPlaying(true);
+  // const [songPlaying, setSongPlaying] = useState({} as any);
+  const audioRef = document.getElementById("nowPlaying")! as HTMLAudioElement;
+  if (audioRef) {
+    audioRef.addEventListener("playing", () => {
       setIsLoading(false);
-    },
-    onStop: () => {
+      setIsPlaying(true);
+    });
+    audioRef.addEventListener("pause", () => {
       setIsPlaying(false);
-    },
-    onMetadata: (value: any) => {
-      setSongPlaying(value);
-      console.log(songPlaying);
-    },
-
-    onError: () => {
-      // handle errors
-    },
-  };
-  const [player, setPlayer] = useState({} as IcecastMetadataPlayer);
+    });
+    audioRef.addEventListener("loadstart", () => {
+      setIsLoading(true);
+    });
+  }
 
   useEffect(() => {
-    if (nowPlaying.urlResolved) {
-      if (player.endpoint) {
-        player.detachAudioElement();
-      }
-      setPlayer(
-        new IcecastMetadataPlayer(nowPlaying.urlResolved, playerOptions)
-      );
+    if (audioRef) {
+      isPlaying ? audioRef.play() : audioRef.pause();
     }
-  }, [nowPlaying]);
+  }, [isPlaying, audioRef]);
 
-  useEffect(() => {
-    player.endpoint && player.play();
-  }, [player]);
   return (
     <PlayerContext.Provider
       value={{
-        player,
         nowPlaying,
         setNowPlaying,
         isPlaying,
+        setIsPlaying,
         isLoading,
         audioRef,
       }}

@@ -6,11 +6,11 @@ import {
 import { usePlayer } from "../context/PlayerContext";
 
 export default function PlayButton({ size }: { size: number }) {
-  const { player, isLoading } = usePlayer();
+  const { isPlaying, setIsPlaying, isLoading } = usePlayer();
   return (
     <button
       onClick={() => {
-        player.state === "playing" ? player.stop() : player.play();
+        setIsPlaying(!isPlaying);
       }}
       className={`p-4 bg-green-500 rounded-full h-[${
         size * 2
@@ -18,7 +18,7 @@ export default function PlayButton({ size }: { size: number }) {
     >
       {isLoading ? (
         <PuffLoader size={size} color="green" />
-      ) : player.state === "playing" ? (
+      ) : isPlaying ? (
         <IconPlayerStopFilled size={size} />
       ) : (
         <IconPlayerPlayFilled size={size} />
