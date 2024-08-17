@@ -10,14 +10,12 @@ export default async (req: Request, context: Context) => {
   });
   const metaInt = streamRes.headers.get("icy-metaint", 0);
   if (metaInt) {
-    const reader = streamRes.body?.getReader();
-    const startingAB = new ArrayBuffer(parseInt(metaInt));
+    const reader = streamRes.body!.getReader();
     let byteCounter = 0;
     let metadataLength = 0;
-    let audioBuffer = startingAB;
 
     while (true) {
-      const { done, value } = await reader?.read();
+      const { done, value } = await reader.read();
       if (done) break;
 
       for (let index = 0; index < value.length; index++) {
