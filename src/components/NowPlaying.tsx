@@ -18,7 +18,7 @@ function StationTitle({ station }: { station: Station }) {
 }
 
 export default function NowPlaying() {
-  const { nowPlaying, isPlaying } = usePlayer();
+  const { nowPlaying } = usePlayer();
   const [isCollapsed, setIsCollapsed] = useState(true);
 
   useEffect(() => {
@@ -46,11 +46,6 @@ export default function NowPlaying() {
           <div className="w-full overflow-hidden">
             <StationTitle station={nowPlaying} />
             <p>Song Title / Artist Name</p>
-            <audio
-              src={nowPlaying.urlResolved}
-              id="nowPlaying"
-              autoPlay={isPlaying}
-            />
           </div>
           <button
             className="bg-slate-200 rounded-full sm:hidden"

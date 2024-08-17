@@ -3,18 +3,24 @@ import { IconVolume, IconVolume2, IconVolume3 } from "@tabler/icons-react";
 import { usePlayer } from "../context/PlayerContext";
 
 export default function VolumeControls() {
-  const [currentVolume, setCurrentVolume] = useState(0);
-  const { audioRef } = usePlayer();
+  const [currentVolume, setCurrentVolume] = useState(1);
+  const [isMuted, setIsMuted] = useState(false);
+  const [mutedVolume, setMutedVolume] = useState(0);
+  const { audioRef, isPlaying } = usePlayer();
 
   useEffect(() => {
     setCurrentVolume(audioRef?.volume);
     // TODO: save volume setting to localstorage for persistance
-  }, [audioRef]);
+  }, [audioRef, isPlaying]);
+
+  useEffect(() => {
+    audioRef.volume = currentVolume;
+  }, [currentVolume]);
 
   const handleVolumeChange = (e: ChangeEvent) => {
     const input = e.target as HTMLInputElement;
     setCurrentVolume(input.valueAsNumber);
-    audioRef.volume = currentVolume;
+    // audioRef.volume = input.valueAsNumber;
   };
 
   const renderVolumeIcon = () => {
@@ -29,7 +35,16 @@ export default function VolumeControls() {
   };
   return (
     <div className="py-1 bg-slate-200 rounded-full flex justify-center">
-      <div className="pl-1">{renderVolumeIcon()}</div>
+      <button
+        className="pl-1"
+        onClick={() => {
+          !isMuted && setMutedVolume(currentVolume);
+          setCurrentVolume(isMuted ? mutedVolume : 0);
+          setIsMuted(!isMuted);
+        }}
+      >
+        {renderVolumeIcon()}
+      </button>
       <input
         className="w-full mx-2"
         type="range"

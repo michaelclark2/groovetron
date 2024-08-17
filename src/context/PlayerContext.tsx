@@ -23,11 +23,16 @@ export function PlayerContextProvider({ children }: { children: any }) {
       setIsLoading(false);
       setIsPlaying(true);
     });
+    audioRef.addEventListener("canplay", () => {
+      setIsLoading(false);
+      setIsPlaying(true);
+    });
     audioRef.addEventListener("pause", () => {
       setIsPlaying(false);
     });
     audioRef.addEventListener("loadstart", () => {
       setIsLoading(true);
+      setIsPlaying(false);
     });
   }
 
@@ -35,7 +40,7 @@ export function PlayerContextProvider({ children }: { children: any }) {
     if (audioRef) {
       isPlaying ? audioRef.play() : audioRef.pause();
     }
-  }, [isPlaying, audioRef]);
+  }, [isPlaying]);
 
   return (
     <PlayerContext.Provider
@@ -49,6 +54,11 @@ export function PlayerContextProvider({ children }: { children: any }) {
       }}
     >
       {children}
+      <audio
+        src={nowPlaying.urlResolved}
+        id="nowPlaying"
+        autoPlay={isPlaying}
+      />
     </PlayerContext.Provider>
   );
 }
