@@ -30,10 +30,13 @@ export default function NowPlaying() {
     }
   }, [nowPlaying.name]);
 
-  const currentTrack = document.getElementById("currentTrack")!;
+  const getCurrentlyPlayingElement = () =>
+    document.getElementById("currentTrack")!;
+
   useEffect(() => {
+    const currentTrack = getCurrentlyPlayingElement();
     setShouldMarquee(
-      currentTrack?.scrollWidth > currentTrack?.closest(".w-full")?.scrollWidth
+      currentTrack?.scrollWidth > currentTrack?.closest(".w-full")!.scrollWidth
     );
   }, [songPlaying]);
 
@@ -63,9 +66,10 @@ export default function NowPlaying() {
                 play={shouldMarquee}
                 loop={shouldMarquee ? 0 : 1}
                 onMount={() => {
+                  const currentTrack = getCurrentlyPlayingElement();
                   setShouldMarquee(
                     currentTrack?.scrollWidth >
-                      currentTrack?.closest(".w-full")?.scrollWidth
+                      currentTrack?.closest(".w-full")!.scrollWidth
                   );
                 }}
               >
