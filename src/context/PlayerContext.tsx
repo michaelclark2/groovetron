@@ -35,6 +35,9 @@ export function PlayerContextProvider({ children }: { children: any }) {
       setIsLoading(true);
       setIsPlaying(false);
     });
+    audioRef.addEventListener("error", () => {
+      audioRef.src = nowPlaying.url;
+    });
   }
 
   useEffect(() => {
