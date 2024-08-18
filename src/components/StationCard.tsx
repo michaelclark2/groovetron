@@ -138,7 +138,12 @@ export default function StationCard({ station }: { station: Station }) {
         >
           {isStationInFavs ? <IconStarFilled /> : <IconStar />}
         </button>
-        <button className="">
+        <button
+          className=""
+          onClick={() => {
+            window.open(station.homepage), "__blank";
+          }}
+        >
           <IconHome />
         </button>
       </div>

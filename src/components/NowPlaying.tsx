@@ -1,5 +1,5 @@
 import { Station } from "radio-browser-api";
-import { useEffect, useState } from "react";
+import { MouseEventHandler, ReactElement, useEffect, useState } from "react";
 import PlayButton from "./PlayButton";
 import VolumeControls from "./VolumeControls";
 import {
@@ -9,16 +9,19 @@ import {
   IconHome,
   IconSettings,
   IconStar,
+  IconStarFilled,
 } from "@tabler/icons-react";
 
 import { usePlayer } from "../context/PlayerContext";
 import Marquee from "react-fast-marquee";
+import { useUserData } from "../context/UserContext";
 
 function StationTitle({ station }: { station: Station }) {
   return <h2 className="text-xl sm:text-2xl font-bold">{station?.name}</h2>;
 }
 
 export default function NowPlaying() {
+  const { userData, addToFaves, removeFromFaves } = useUserData();
   const { nowPlaying, songPlaying } = usePlayer();
   const [isCollapsed, setIsCollapsed] = useState(true);
   const [shouldMarquee, setShouldMarquee] = useState(false);
@@ -33,6 +36,10 @@ export default function NowPlaying() {
   const getCurrentlyPlayingElement = () =>
     document.getElementById("currentTrack")!;
 
+  const isStationInFavs = userData?.favs?.some(
+    (fav: Station) => fav.id === nowPlaying.id
+  );
+
   useEffect(() => {
     const currentTrack = getCurrentlyPlayingElement();
     setShouldMarquee(
@@ -40,11 +47,42 @@ export default function NowPlaying() {
     );
   }, [songPlaying]);
 
+  const handleSaveSong = () => {
+    console.log("save song");
+  };
+
+  const handleFavStation = () => {
+    isStationInFavs ? removeFromFaves(nowPlaying.id) : addToFaves(nowPlaying);
+  };
+
+  const handleHomePage = () => {
+    window.open(nowPlaying.homepage, "__blank");
+  };
+
+  const handleSettings = () => {
+    console.log("settings");
+  };
+
+  const renderOptions = () => {
+    return options.map((options) => {
+      const icon = options[0] as ReactElement;
+      const action = options[1] as MouseEventHandler;
+      return (
+        <button
+          onClick={action}
+          className="bg-slate-100 rounded-full p-1 mx-1 mb-3 flex justify-center items-center w-[30px] h-[30px]"
+        >
+          {icon}
+        </button>
+      );
+    });
+  };
+
   const options = [
-    <IconDeviceFloppy />,
-    <IconStar />,
-    <IconHome />,
-    <IconSettings />,
+    [<IconDeviceFloppy />, handleSaveSong],
+    [isStationInFavs ? <IconStarFilled /> : <IconStar />, handleFavStation],
+    [<IconHome />, handleHomePage],
+    [<IconSettings />, handleSettings],
   ];
 
   if (Object.keys(nowPlaying).length === 0) return;
@@ -86,26 +124,14 @@ export default function NowPlaying() {
             {isCollapsed ? <IconCaretDown /> : <IconCaretUp />}
           </button>
           <div className="hidden sm:flex flex-col justify-between">
-            <div className="flex justify-between">
-              {options.map((icon) => (
-                <div className="bg-slate-100 rounded-full p-1 mx-1 mb-3 flex justify-center items-center w-[30px] h-[30px]">
-                  {icon}
-                </div>
-              ))}
-            </div>
+            <div className="flex justify-between">{renderOptions()}</div>
             <VolumeControls />
           </div>
         </div>
         {isCollapsed ? null : (
           <div className="mt-4 sm:hidden">
             <div className="flex">
-              <div className="w-1/2 flex">
-                {options.map((icon) => (
-                  <div className="bg-slate-100 rounded-full p-1 mx-1 mb-1 flex justify-center items-center w-[30px] h-[30px]">
-                    {icon}
-                  </div>
-                ))}
-              </div>
+              <div className="w-1/2 flex">{renderOptions()}</div>
               <div className="w-1/2">
                 <VolumeControls />
               </div>
