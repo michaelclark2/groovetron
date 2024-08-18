@@ -36,7 +36,13 @@ export function PlayerContextProvider({ children }: { children: any }) {
       setIsPlaying(false);
     });
     audioRef.addEventListener("error", () => {
-      audioRef.src = nowPlaying.url;
+      if (audioRef.src != nowPlaying.url) {
+        audioRef.src = nowPlaying.url;
+      } else {
+        setIsPlaying(false);
+        setIsLoading(false);
+        setSongPlaying("Could not connect to station");
+      }
     });
   }
 
