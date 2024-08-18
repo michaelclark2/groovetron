@@ -87,7 +87,7 @@ export function PlayerContextProvider({ children }: { children: any }) {
 
 const transformMetadata = (metadata: string) => {
   if (metadata.startsWith("StreamTitle")) {
-    const title = metadata.split(";")[0].split("'")[1];
+    const title = metadata.match(/(?:StreamTitle=')(.*?)(?:';)/)![1];
     return title;
   }
   return metadata;

@@ -12,6 +12,7 @@ import {
 } from "@tabler/icons-react";
 
 import { usePlayer } from "../context/PlayerContext";
+import Marquee from "react-fast-marquee";
 
 function StationTitle({ station }: { station: Station }) {
   return <h2 className="text-xl sm:text-2xl font-bold">{station?.name}</h2>;
@@ -20,6 +21,7 @@ function StationTitle({ station }: { station: Station }) {
 export default function NowPlaying() {
   const { nowPlaying, songPlaying } = usePlayer();
   const [isCollapsed, setIsCollapsed] = useState(true);
+  const [shouldMarquee, setShouldMarquee] = useState(false);
 
   useEffect(() => {
     if (nowPlaying.name) {
@@ -27,6 +29,13 @@ export default function NowPlaying() {
         "Radio" + (nowPlaying?.name ? ": " + nowPlaying.name : "");
     }
   }, [nowPlaying.name]);
+
+  const currentTrack = document.getElementById("currentTrack")!;
+  useEffect(() => {
+    setShouldMarquee(
+      currentTrack?.scrollWidth > currentTrack?.closest(".w-full")?.scrollWidth
+    );
+  }, [songPlaying]);
 
   const options = [
     <IconDeviceFloppy />,
@@ -45,7 +54,26 @@ export default function NowPlaying() {
           </div>
           <div className="w-full overflow-hidden">
             <StationTitle station={nowPlaying} />
-            <p>{songPlaying}</p>
+            {songPlaying && (
+              <Marquee
+                speed={30}
+                delay={5}
+                pauseOnHover
+                className="gap-2"
+                play={shouldMarquee}
+                loop={shouldMarquee ? 0 : 1}
+                onMount={() => {
+                  setShouldMarquee(
+                    currentTrack?.scrollWidth >
+                      currentTrack?.closest(".w-full")?.scrollWidth
+                  );
+                }}
+              >
+                <p id="currentTrack" className="overflow-hidden">
+                  {songPlaying}
+                </p>
+              </Marquee>
+            )}
           </div>
           <button
             className="bg-slate-200 rounded-full sm:hidden"
