@@ -21,8 +21,7 @@ function StationTitle({ station }: { station: Station }) {
 }
 
 export default function NowPlaying() {
-  const { userData, addToFaves, removeFromFaves, addToSongs, removeFromSongs } =
-    useUserData();
+  const { userData, addToFaves, removeFromFaves, addToSongs } = useUserData();
   const { nowPlaying, songPlaying } = usePlayer();
   const [isCollapsed, setIsCollapsed] = useState(true);
   const [shouldMarquee, setShouldMarquee] = useState(false);
