@@ -21,7 +21,8 @@ function StationTitle({ station }: { station: Station }) {
 }
 
 export default function NowPlaying() {
-  const { userData, addToFaves, removeFromFaves } = useUserData();
+  const { userData, addToFaves, removeFromFaves, addToSongs, removeFromSongs } =
+    useUserData();
   const { nowPlaying, songPlaying } = usePlayer();
   const [isCollapsed, setIsCollapsed] = useState(true);
   const [shouldMarquee, setShouldMarquee] = useState(false);
@@ -48,7 +49,12 @@ export default function NowPlaying() {
   }, [songPlaying]);
 
   const handleSaveSong = () => {
-    console.log("save song");
+    const song = {
+      track: songPlaying,
+      station: nowPlaying,
+      timestamp: Date.now(),
+    };
+    addToSongs(song);
   };
 
   const handleFavStation = () => {

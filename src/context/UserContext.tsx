@@ -6,9 +6,10 @@ class UserData {
   songs = [] as Song[];
 }
 
-type Song = {
-  title: string;
-  artist: string;
+export type Song = {
+  track: string;
+  station: Station;
+  timestamp: Date;
 };
 
 const UserContext = createContext({} as any);
@@ -17,7 +18,7 @@ export function UserContextProvider({ children }: { children: any }) {
   const [userData, setUserData] = useState(new UserData());
 
   useEffect(() => {
-    if (userData?.favs.length > 0) {
+    if (userData?.favs.length > 0 || userData?.songs.length > 0) {
       saveUserDataToLocalStorage(userData);
     }
   }, [userData]);
@@ -50,8 +51,33 @@ export function UserContextProvider({ children }: { children: any }) {
     }
   };
 
+  const addToSongs = (song: Song) => {
+    const newSongs = [...userData.songs, song];
+    const newUserData = { ...userData, songs: newSongs };
+    setUserData(newUserData);
+  };
+
+  const removeFromSongs = (song: Song) => {
+    const newSongs = userData.songs.filter(
+      (s) => s.track !== song.track && s.station.id !== song.station.id
+    );
+    const newUserData = { ...userData, songs: newSongs };
+    setUserData(newUserData);
+    if (newSongs.length === 0) {
+      saveUserDataToLocalStorage(newUserData);
+    }
+  };
+
   return (
-    <UserContext.Provider value={{ userData, addToFaves, removeFromFaves }}>
+    <UserContext.Provider
+      value={{
+        userData,
+        addToFaves,
+        removeFromFaves,
+        addToSongs,
+        removeFromSongs,
+      }}
+    >
       {children}
     </UserContext.Provider>
   );

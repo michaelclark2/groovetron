@@ -1,6 +1,7 @@
 import { useState } from "react";
 import StationBrowser from "./StationBrowser";
 import FavoritesBrowser from "./FavoritesBrowser";
+import SongBrowser from "./SongBrowser";
 export type SectionState = string | "browse" | "favs" | "songs";
 
 export default function StationSection() {
@@ -12,7 +13,7 @@ export default function StationSection() {
       case "favs":
         return <FavoritesBrowser />;
       case "songs":
-        break;
+        return <SongBrowser />;
       default:
         break;
     }
