@@ -1,4 +1,4 @@
-import { Station } from "radio-browser-api";
+import { CountryResult, Station, StationSearchOrder } from "radio-browser-api";
 import { useRadioBrowser } from "../context/RadioBrowserContext";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import StationsPagination from "./StationsPagination";
@@ -13,16 +13,33 @@ export default function StationBrowser() {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState<Station[]>([]);
 
+  const [showFilters, setShowFilters] = useState(false);
+  const [sortBy, setSortBy] = useState<keyof typeof StationSearchOrder>(
+    StationSearchOrder.name
+  );
+  const [languages, setLanguages] = useState([] as CountryResult[]);
+  const [countries, setCountries] = useState([] as CountryResult[]);
+  const [codecs, setCodecs] = useState([] as CountryResult[]);
+  const [tagList, setTagList] = useState("");
+  const [bitrateMin, setBitrateMin] = useState(0);
+  const [bitrateMax, setBitrateMax] = useState(400);
+
   useEffect(() => {
-    const getStations = async () => {
+    const getInitialData = async () => {
       setIsLoading(true);
       const recentClicks = await RadioBrowser.getStationsByRecentClicks(20);
       const topVotes = await RadioBrowser.getStationsByVotes(20);
+      const allLanguages = await RadioBrowser.getLanguages();
+      const allCountries = await RadioBrowser.getCountries();
+      const allCodecs = await RadioBrowser.getCodecs();
+      setLanguages(allLanguages);
+      setCountries(allCountries);
+      setCodecs(allCodecs);
       setRecentClicks(recentClicks);
       setTopVotes(topVotes);
       setIsLoading(false);
     };
-    getStations();
+    getInitialData();
   }, []);
 
   useEffect(() => {
@@ -34,13 +51,21 @@ export default function StationBrowser() {
       setIsLoading(true);
       const results = await RadioBrowser.searchStations({
         name: searchTerm,
+        order: sortBy ?? undefined,
+        reverse: (
+          [
+            StationSearchOrder.bitrate,
+            StationSearchOrder.votes,
+            StationSearchOrder.clickCount,
+          ] as (keyof typeof StationSearchOrder)[]
+        ).includes(sortBy),
         limit: 300, // TODO: remove this, and truncate bullets in StationsPagination
       });
       setSearchResults(results);
       setIsLoading(false);
     }, 500);
     return () => clearTimeout(debouncedSearchSubmitId);
-  }, [searchTerm]);
+  }, [searchTerm, sortBy]);
 
   const handleSearchChange = (e: ChangeEvent) => {
     const { value } = e.target as HTMLInputElement;
@@ -74,6 +99,33 @@ export default function StationBrowser() {
       </>
     );
 
+  const handleSortByChange = (e: ChangeEvent) => {
+    const { value } = e.target as HTMLSelectElement;
+    setSortBy(value as keyof typeof StationSearchOrder);
+  };
+
+  const handleTagChange = (e: ChangeEvent) => {
+    const { value } = e.target as HTMLInputElement;
+    setTagList(value);
+  };
+
+  const handleBitrateMinChange = (e: ChangeEvent) => {
+    const { valueAsNumber } = e.target as HTMLInputElement;
+    setBitrateMin(valueAsNumber);
+  };
+
+  const handleBitrateMaxChange = (e: ChangeEvent) => {
+    const { valueAsNumber } = e.target as HTMLInputElement;
+    setBitrateMax(valueAsNumber);
+  };
+
+  const sortOptions = [
+    StationSearchOrder.name,
+    StationSearchOrder.votes,
+    StationSearchOrder.clickCount,
+    StationSearchOrder.bitrate,
+  ];
+
   return (
     <div className="flex flex-col gap-6 bg-slate-200 rounded-xl p-2">
       <h3 className="text-3xl p-2">Find Stations</h3>
@@ -91,13 +143,94 @@ export default function StationBrowser() {
             onChange={handleSearchChange}
           />
         </form>
-        <button className="p-2 bg-slate-100 rounded-full">
+        <select
+          onChange={handleSortByChange}
+          className="focus-visible:outline-none rounded-full p-2"
+        >
+          {sortOptions.map((option) => (
+            <option value={option}>{option}</option>
+          ))}
+        </select>
+        <button
+          className="p-2 bg-slate-100 rounded-full"
+          onClick={() => setShowFilters(!showFilters)}
+        >
           <IconFilterCog />
         </button>
       </div>
+      {showFilters && (
+        <div className="flex flex-col bg-slate-100 p-2 rounded-xl gap-2">
+          <h4 className="text-lg font-bold">Filter Options</h4>
+          <div className="tags flex flex-col">
+            <label htmlFor="tags">Tags:</label>
+            <input
+              type="text"
+              name="tags"
+              className="rounded-full"
+              value={tagList}
+              onChange={handleTagChange}
+            />
+          </div>
+          <div className="flex gap-2">
+            <div className="bitrate w-3/4 flex-col flex justify-between">
+              <label htmlFor="bitrate">
+                Bitrate: {bitrateMin} - {bitrateMax}
+              </label>
+              <div className="range-control flex h-full">
+                <input
+                  type="range"
+                  name="bitrateMin"
+                  step="1"
+                  value={bitrateMin}
+                  min={0}
+                  max={200}
+                  onChange={handleBitrateMinChange}
+                  className="appearance-none w-full rounded-l-full"
+                />
+                <input
+                  type="range"
+                  name="bitrateMax"
+                  step="1"
+                  value={bitrateMax}
+                  min={200}
+                  max={400}
+                  onChange={handleBitrateMaxChange}
+                  className="appearance-none w-full rounded-r-full"
+                />
+              </div>
+            </div>
+            <div className="codec w-1/4">
+              <label htmlFor="codec">Codec:</label>
+              <select name="codec" className="w-full rounded-full">
+                {codecs?.map((codec) => (
+                  <option value={codec.name}>{codec.name}</option>
+                ))}
+              </select>
+            </div>
+          </div>
+          <div className="language">
+            <label htmlFor="language">Language:</label>
+            <select name="language" className="w-full rounded-full">
+              <option selected>Select a language</option>
+              {languages?.map((lang: CountryResult) => (
+                <option value={lang.name}>{lang.name}</option>
+              ))}
+            </select>
+          </div>
+          <div className="country">
+            <label htmlFor="country">Country:</label>
+            <select name="country" className="w-full rounded-full">
+              <option selected>Select a country</option>
+              {countries?.map((country: CountryResult) => (
+                <option value={country.name}>{country.name}</option>
+              ))}
+            </select>
+          </div>
+        </div>
+      )}
       <div className="flex flex-col gap-8">
         {isLoading ? (
-          <RingLoader className="self-center" size={200} />
+          <RingLoader className="self-center my-12" color="green" size={200} />
         ) : (
           displayedStations
         )}
