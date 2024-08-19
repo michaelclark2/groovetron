@@ -66,7 +66,6 @@ export function PlayerContextProvider({ children }: { children: any }) {
       getTrackMetadata();
       const interval = setInterval(() => {
         getTrackMetadata();
-        console.log("poll for metadata");
       }, 10000);
       return () => clearInterval(interval);
     }
