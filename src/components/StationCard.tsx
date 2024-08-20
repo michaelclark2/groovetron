@@ -110,12 +110,12 @@ export default function StationCard({ station }: { station: Station }) {
         <StationCardImage station={station} />
       </button>
       <div className="flex-1 flex-col justify-between ml-2 overflow-hidden">
-        <h3 className="sm:text-xl text-lg font-bold overflow-hidden text-nowrap text-ellipsis">
+        <h3 className="sm:text-xl text-lg font-bold overflow-hidden text-ellipsis pb-2">
           {station.name}
         </h3>
         <StationTags station={station} />
       </div>
-      <div className="w-1/12 flex flex-col items-center justify-start gap-2">
+      <div className="w-1/12 flex flex-col items-end justify-start gap-2">
         <button
           onClick={() => {
             if (isStationInFavs) {

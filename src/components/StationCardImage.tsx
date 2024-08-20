@@ -18,7 +18,7 @@ export default function StationCardImage({ station }: { station: Station }) {
     <img
       src={imgSrc}
       onError={handleImgError}
-      className="aspect-square rounded-xl object-cover w-full"
+      className="aspect-square rounded-lg object-cover w-full"
       loading="lazy"
     />
   );
