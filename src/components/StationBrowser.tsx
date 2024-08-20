@@ -3,7 +3,7 @@ import { useRadioBrowser } from "../context/RadioBrowserContext";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import StationsPagination from "./StationsPagination";
 import { RingLoader } from "react-spinners";
-import { IconFilterCog, IconSearch } from "@tabler/icons-react";
+import { IconFilterCog, IconSearch, IconX } from "@tabler/icons-react";
 
 export default function StationBrowser() {
   const RadioBrowser = useRadioBrowser();
@@ -20,7 +20,8 @@ export default function StationBrowser() {
   const [languages, setLanguages] = useState([] as CountryResult[]);
   const [countries, setCountries] = useState([] as CountryResult[]);
   const [codecs, setCodecs] = useState([] as CountryResult[]);
-  const [tagList, setTagList] = useState("");
+  const [tagInput, setTagInput] = useState("");
+  const [tagList, setTagList] = useState([] as string[]);
   const [bitrateMin, setBitrateMin] = useState(0);
   const [bitrateMax, setBitrateMax] = useState(400);
 
@@ -106,7 +107,19 @@ export default function StationBrowser() {
 
   const handleTagChange = (e: ChangeEvent) => {
     const { value } = e.target as HTMLInputElement;
-    setTagList(value);
+    if (value.endsWith(", ")) {
+      const newTag = value.slice(0, -2);
+      const newTagList = [...tagList, newTag];
+      setTagList(newTagList);
+      setTagInput("");
+      return;
+    }
+    setTagInput(value);
+  };
+
+  const removeTag = (tag: string) => {
+    const newTags = tagList.filter((t) => t !== tag);
+    setTagList(newTags);
   };
 
   const handleBitrateMinChange = (e: ChangeEvent) => {
@@ -171,13 +184,24 @@ export default function StationBrowser() {
           <h4 className="text-lg font-bold">Filter Options</h4>
           <div className="tags flex flex-col gap-2">
             <label htmlFor="tags">Tags:</label>
-            <input
-              type="text"
-              name="tags"
-              className="rounded-full"
-              value={tagList}
-              onChange={handleTagChange}
-            />
+            <div className="tag-box flex flex-wrap  items-center gap-1 bg-white rounded-xl overflow-hidden p-2">
+              {tagList?.map((tag) => (
+                <div className="tag bg-green-200 rounded-full px-2 text-sm flex items-center">
+                  <span>{tag}</span>
+                  <button onClick={() => removeTag(tag)}>
+                    <IconX size={16} />
+                  </button>
+                </div>
+              ))}
+              <input
+                type="text"
+                name="tags"
+                className="rounded-full focus:outline-none w-24"
+                value={tagInput}
+                onChange={handleTagChange}
+                placeholder="Tag"
+              />
+            </div>
           </div>
           <div className="flex gap-4">
             <div className="bitrate w-3/5 flex-col flex justify-between gap-2">
