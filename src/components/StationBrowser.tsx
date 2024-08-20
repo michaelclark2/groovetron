@@ -22,8 +22,11 @@ export default function StationBrowser() {
   const [codecs, setCodecs] = useState([] as CountryResult[]);
   const [tagInput, setTagInput] = useState("");
   const [tagList, setTagList] = useState([] as string[]);
-  const [bitrateMin, setBitrateMin] = useState(0);
-  const [bitrateMax, setBitrateMax] = useState(400);
+  const [bitrateMin, setBitrateMin] = useState("0");
+  const [bitrateMax, setBitrateMax] = useState("400");
+  const [codecSelect, setCodecSelect] = useState("");
+  const [language, setLanguage] = useState("");
+  const [country, setCountry] = useState("");
 
   useEffect(() => {
     const getInitialData = async () => {
@@ -49,10 +52,14 @@ export default function StationBrowser() {
         setSearchResults([]);
         return;
       }
-      setIsLoading(true);
-      const results = await RadioBrowser.searchStations({
+      const searchOptions = {
         name: searchTerm,
-        order: sortBy ?? undefined,
+        order: sortBy,
+        tagList,
+        bitrateMin,
+        bitrateMax,
+        language,
+        country,
         reverse: (
           [
             StationSearchOrder.bitrate,
@@ -61,12 +68,24 @@ export default function StationBrowser() {
           ] as (keyof typeof StationSearchOrder)[]
         ).includes(sortBy),
         limit: 300, // TODO: remove this, and truncate bullets in StationsPagination
-      });
+      } as { [key: string]: any };
+      if (codecSelect) searchOptions["codec"] = codecSelect;
+      setIsLoading(true);
+      const results = await RadioBrowser.searchStations(searchOptions);
       setSearchResults(results);
       setIsLoading(false);
     }, 500);
     return () => clearTimeout(debouncedSearchSubmitId);
-  }, [searchTerm, sortBy]);
+  }, [
+    searchTerm,
+    sortBy,
+    bitrateMax,
+    bitrateMin,
+    codecSelect,
+    language,
+    country,
+    tagList,
+  ]);
 
   const handleSearchChange = (e: ChangeEvent) => {
     const { value } = e.target as HTMLInputElement;
@@ -117,19 +136,47 @@ export default function StationBrowser() {
     setTagInput(value);
   };
 
+  const handleTagSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    const form = e.target as HTMLFormElement;
+    const data = new FormData(form);
+    if (data) {
+      for (const [_, value] of data) {
+        const newTag = (value as string).trim();
+        setTagList([...tagList, newTag]);
+        setTagInput("");
+      }
+    }
+  };
+
   const removeTag = (tag: string) => {
     const newTags = tagList.filter((t) => t !== tag);
     setTagList(newTags);
   };
 
   const handleBitrateMinChange = (e: ChangeEvent) => {
-    const { valueAsNumber } = e.target as HTMLInputElement;
-    setBitrateMin(valueAsNumber);
+    const { value } = e.target as HTMLInputElement;
+    setBitrateMin(value);
   };
 
   const handleBitrateMaxChange = (e: ChangeEvent) => {
-    const { valueAsNumber } = e.target as HTMLInputElement;
-    setBitrateMax(valueAsNumber);
+    const { value } = e.target as HTMLInputElement;
+    setBitrateMax(value);
+  };
+
+  const handleCodecChange = (e: ChangeEvent) => {
+    const { value } = e.target as HTMLSelectElement;
+    setCodecSelect(value);
+  };
+
+  const handleLanguageChange = (e: ChangeEvent) => {
+    const { value } = e.target as HTMLSelectElement;
+    setLanguage(value);
+  };
+
+  const handleCountryChange = (e: ChangeEvent) => {
+    const { value } = e.target as HTMLSelectElement;
+    setCountry(value);
   };
 
   const sortOptions = {
@@ -193,14 +240,16 @@ export default function StationBrowser() {
                   </button>
                 </div>
               ))}
-              <input
-                type="text"
-                name="tags"
-                className="rounded-full focus:outline-none w-24"
-                value={tagInput}
-                onChange={handleTagChange}
-                placeholder="Tag"
-              />
+              <form onSubmit={handleTagSubmit}>
+                <input
+                  type="text"
+                  name="tag"
+                  className="rounded-full focus:outline-none w-24"
+                  value={tagInput}
+                  onChange={handleTagChange}
+                  placeholder="Tag"
+                />
+              </form>
             </div>
           </div>
           <div className="flex gap-4">
@@ -233,26 +282,46 @@ export default function StationBrowser() {
             </div>
             <div className="codec gap-2 flex-1 flex flex-col">
               <label htmlFor="codec">Codec:</label>
-              <select name="codec" className="w-full rounded-full">
+              <select
+                name="codec"
+                className="w-full rounded-full bg-white focus:outline-none"
+                onChange={handleCodecChange}
+              >
+                <option />
                 {codecs?.map((codec) => (
-                  <option value={codec.name}>{codec.name}</option>
+                  <option
+                    selected={codec.name === codecSelect}
+                    value={codec.name}
+                  >
+                    {codec.name}
+                  </option>
                 ))}
               </select>
             </div>
           </div>
           <div className="language gap-2 flex flex-col">
             <label htmlFor="language">Language:</label>
-            <select name="language" className="w-full rounded-full">
-              <option selected>Select a language</option>
+            <select
+              name="language"
+              className="w-full rounded-full bg-white focus:outline-none"
+              onChange={handleLanguageChange}
+            >
+              <option />
               {languages?.map((lang: CountryResult) => (
-                <option value={lang.name}>{lang.name}</option>
+                <option selected={lang.name === language} value={lang.name}>
+                  {lang.name}
+                </option>
               ))}
             </select>
           </div>
           <div className="country gap-2 flex flex-col">
             <label htmlFor="country">Country:</label>
-            <select name="country" className="w-full rounded-full">
-              <option selected>Select a country</option>
+            <select
+              name="country"
+              className="w-full rounded-full bg-white focus:outline-none"
+              onChange={handleCountryChange}
+            >
+              <option />
               {countries?.map((country: CountryResult) => (
                 <option value={country.name}>{country.name}</option>
               ))}
