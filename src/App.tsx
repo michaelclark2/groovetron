@@ -5,7 +5,9 @@ import NowPlaying from "./components/NowPlaying";
 function App() {
   return (
     <main className="m-2 sm:w-3/4 xl:w-1/2 sm:mx-auto">
-      <h1 className="font-mono text-5xl text-center">Groovetron</h1>
+      <h1 className="text-4xl sm:text-5xl text-center title mb-4">
+        Groovetron
+      </h1>
       <NowPlaying />
       <StationSection />
     </main>
