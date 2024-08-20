@@ -114,7 +114,7 @@ export default function NowPlaying() {
                 loop={shouldMarquee ? 0 : 1}
                 onMount={checkMarqueeSize}
               >
-                <p id="currentTrack" className="overflow-hidden">
+                <p id="currentTrack" className="overflow-hidden mr-6">
                   {songPlaying}
                 </p>
               </Marquee>
