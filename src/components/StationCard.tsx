@@ -57,17 +57,8 @@ function StationTags({ station }: { station: Station }) {
   };
   const StationTags = ({ station }: { station: Station }) => {
     const { tags } = station;
-    const tagLimit = 5;
 
-    let displayedTags = [...tags];
-    if (tags.length > tagLimit + 1) {
-      displayedTags = [
-        ...displayedTags.slice(0, tagLimit),
-        `+${tags.length - tagLimit} more`,
-      ];
-    }
-
-    return displayedTags.map((tag) => (
+    return tags.map((tag) => (
       <div key={tag} className="bg-green-300 p-1 rounded-md text-xs">
         {tag}
       </div>
@@ -114,17 +105,17 @@ export default function StationCard({ station }: { station: Station }) {
           setNowPlaying(station);
           RadioBrowser.sendStationClick(station.id);
         }}
-        className="w-3/12 sm:w-1/12 flex items-center justify-center aspect-square bg-slate-100 rounded-xl overflow-clip"
+        className="w-2/12 sm:w-1/12 flex items-start justify-center m-1"
       >
         <StationCardImage station={station} />
       </button>
-      <div className="w-5/6 flex flex-col justify-between ml-2 overflow-hidden">
+      <div className="flex-1 flex-col justify-between ml-2 overflow-hidden">
         <h3 className="sm:text-xl text-lg font-bold overflow-hidden text-nowrap text-ellipsis">
           {station.name}
         </h3>
         <StationTags station={station} />
       </div>
-      <div className="w-1/12 flex flex-col items-end justify-between">
+      <div className="w-1/12 flex flex-col items-center justify-start gap-2">
         <button
           onClick={() => {
             if (isStationInFavs) {
