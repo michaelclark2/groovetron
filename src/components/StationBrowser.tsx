@@ -119,19 +119,19 @@ export default function StationBrowser() {
     setBitrateMax(valueAsNumber);
   };
 
-  const sortOptions = [
-    StationSearchOrder.name,
-    StationSearchOrder.votes,
-    StationSearchOrder.clickCount,
-    StationSearchOrder.bitrate,
-  ];
+  const sortOptions = {
+    Name: StationSearchOrder.name,
+    Votes: StationSearchOrder.votes,
+    Plays: StationSearchOrder.clickCount,
+    Bitrate: StationSearchOrder.bitrate,
+  } as { [key: string]: string };
 
   return (
     <div className="flex flex-col gap-6 bg-slate-200 rounded-xl p-2">
       <h3 className="text-3xl p-2">Find Stations</h3>
-      <div className="w-full flex gap-2">
+      <div className="w-full flex flex-col sm:flex-row justify-between gap-2">
         <form
-          className="w-full flex bg-white rounded-full p-2 gap-2"
+          className="sm:w-8/12 flex bg-white rounded-full p-2 gap-2"
           onSubmit={handleFormSubmit}
         >
           <IconSearch />
@@ -143,20 +143,28 @@ export default function StationBrowser() {
             onChange={handleSearchChange}
           />
         </form>
-        <select
-          onChange={handleSortByChange}
-          className="focus-visible:outline-none rounded-full p-2"
-        >
-          {sortOptions.map((option) => (
-            <option value={option}>{option}</option>
-          ))}
-        </select>
-        <button
-          className="p-2 bg-slate-100 rounded-full"
-          onClick={() => setShowFilters(!showFilters)}
-        >
-          <IconFilterCog />
-        </button>
+        <div className="flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2">
+            <label htmlFor="sortBy" className="text-nowrap">
+              Sort By:
+            </label>
+            <select
+              onChange={handleSortByChange}
+              className="focus-visible:outline-none rounded-full p-2"
+              name="sortBy"
+            >
+              {Object.keys(sortOptions).map((option) => (
+                <option value={sortOptions[option] as string}>{option}</option>
+              ))}
+            </select>
+          </div>
+          <button
+            className="p-2 bg-slate-100 rounded-full"
+            onClick={() => setShowFilters(!showFilters)}
+          >
+            <IconFilterCog />
+          </button>
+        </div>
       </div>
       {showFilters && (
         <div className="flex flex-col bg-slate-100 p-2 rounded-xl gap-2">
