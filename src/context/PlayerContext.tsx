@@ -52,24 +52,24 @@ export function PlayerContextProvider({ children }: { children: any }) {
     }
   }, [isPlaying]);
 
+  const getTrackMetadata = async () => {
+    if (!isPlaying) return;
+    const results = await fetch("/metadata", {
+      method: "POST",
+      body: JSON.stringify({ streamUrl: nowPlaying.urlResolved }),
+    });
+    const metadata = await results.text();
+    const trackTitle = transformMetadata(metadata);
+    setSongPlaying(trackTitle);
+  };
+
   useEffect(() => {
-    if (audioRef && isPlaying) {
-      const getTrackMetadata = async () => {
-        const results = await fetch("/metadata", {
-          method: "POST",
-          body: JSON.stringify({ streamUrl: nowPlaying.urlResolved }),
-        });
-        const metadata = await results.text();
-        const trackTitle = transformMetadata(metadata);
-        setSongPlaying(trackTitle);
-      };
+    if (audioRef) {
       getTrackMetadata();
-      const interval = setInterval(() => {
-        getTrackMetadata();
-      }, 10000);
+      const interval = setInterval(getTrackMetadata, 10000);
       return () => clearInterval(interval);
     }
-  }, [isPlaying, nowPlaying]);
+  }, [isPlaying]);
 
   return (
     <PlayerContext.Provider
