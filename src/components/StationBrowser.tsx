@@ -169,7 +169,7 @@ export default function StationBrowser() {
       {showFilters && (
         <div className="flex flex-col bg-slate-100 p-2 rounded-xl gap-2">
           <h4 className="text-lg font-bold">Filter Options</h4>
-          <div className="tags flex flex-col">
+          <div className="tags flex flex-col gap-2">
             <label htmlFor="tags">Tags:</label>
             <input
               type="text"
@@ -179,8 +179,8 @@ export default function StationBrowser() {
               onChange={handleTagChange}
             />
           </div>
-          <div className="flex gap-2">
-            <div className="bitrate w-3/4 flex-col flex justify-between">
+          <div className="flex gap-4">
+            <div className="bitrate w-3/5 flex-col flex justify-between gap-2">
               <label htmlFor="bitrate">
                 Bitrate: {bitrateMin} - {bitrateMax}
               </label>
@@ -207,7 +207,7 @@ export default function StationBrowser() {
                 />
               </div>
             </div>
-            <div className="codec w-1/4">
+            <div className="codec gap-2 flex-1 flex flex-col">
               <label htmlFor="codec">Codec:</label>
               <select name="codec" className="w-full rounded-full">
                 {codecs?.map((codec) => (
@@ -216,7 +216,7 @@ export default function StationBrowser() {
               </select>
             </div>
           </div>
-          <div className="language">
+          <div className="language gap-2 flex flex-col">
             <label htmlFor="language">Language:</label>
             <select name="language" className="w-full rounded-full">
               <option selected>Select a language</option>
@@ -225,7 +225,7 @@ export default function StationBrowser() {
               ))}
             </select>
           </div>
-          <div className="country">
+          <div className="country gap-2 flex flex-col">
             <label htmlFor="country">Country:</label>
             <select name="country" className="w-full rounded-full">
               <option selected>Select a country</option>
