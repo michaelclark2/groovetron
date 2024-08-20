@@ -29,7 +29,7 @@ export default function NowPlaying() {
   useEffect(() => {
     if (nowPlaying.name) {
       document.title =
-        "Radio" + (nowPlaying?.name ? ": " + nowPlaying.name : "");
+        "Groovetron" + (nowPlaying?.name ? ": " + nowPlaying.name : "");
     }
   }, [nowPlaying.name]);
 
@@ -41,10 +41,7 @@ export default function NowPlaying() {
   );
 
   useEffect(() => {
-    const currentTrack = getCurrentlyPlayingElement();
-    setShouldMarquee(
-      currentTrack?.scrollWidth > currentTrack?.closest(".w-full")!.scrollWidth
-    );
+    checkMarqueeSize();
   }, [songPlaying]);
 
   const handleSaveSong = () => {
@@ -83,6 +80,13 @@ export default function NowPlaying() {
     });
   };
 
+  const checkMarqueeSize = () => {
+    const currentTrack = getCurrentlyPlayingElement();
+    setShouldMarquee(
+      currentTrack?.scrollWidth > currentTrack?.closest(".w-full")!.scrollWidth
+    );
+  };
+
   const options = [
     [<IconDeviceFloppy />, handleSaveSong],
     [isStationInFavs ? <IconStarFilled /> : <IconStar />, handleFavStation],
@@ -92,7 +96,7 @@ export default function NowPlaying() {
 
   if (Object.keys(nowPlaying).length === 0) return;
   return (
-    <div className="my-5 mx-auto truncate">
+    <div className="m-2 mx-auto truncate">
       <div className="p-4 rounded-xl flex bg-slate-300 flex-col">
         <div className="flex items-start justify-between">
           <div className="flex justify-center mr-4">
@@ -108,13 +112,7 @@ export default function NowPlaying() {
                 className="gap-2"
                 play={shouldMarquee}
                 loop={shouldMarquee ? 0 : 1}
-                onMount={() => {
-                  const currentTrack = getCurrentlyPlayingElement();
-                  setShouldMarquee(
-                    currentTrack?.scrollWidth >
-                      currentTrack?.closest(".w-full")!.scrollWidth
-                  );
-                }}
+                onMount={checkMarqueeSize}
               >
                 <p id="currentTrack" className="overflow-hidden">
                   {songPlaying}
@@ -135,9 +133,11 @@ export default function NowPlaying() {
         </div>
         {isCollapsed ? null : (
           <div className="mt-4 sm:hidden">
-            <div className="flex">
-              <div className="w-1/2 flex">{renderOptions()}</div>
-              <div className="w-1/2">
+            <div className="flex flex-col xxs:flex-row">
+              <div className="flex justify-between xxs:justify-normal">
+                {renderOptions()}
+              </div>
+              <div className="w-full">
                 <VolumeControls />
               </div>
             </div>
