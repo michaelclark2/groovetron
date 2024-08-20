@@ -93,6 +93,11 @@ export default function StationCard({ station }: { station: Station }) {
     (fav: Station) => fav.id === station.id
   );
 
+  const changeStation = () => {
+    setNowPlaying(station);
+    RadioBrowser.sendStationClick(station.id);
+  };
+
   return (
     <div
       className={
@@ -101,15 +106,15 @@ export default function StationCard({ station }: { station: Station }) {
       }
     >
       <button
-        onClick={() => {
-          setNowPlaying(station);
-          RadioBrowser.sendStationClick(station.id);
-        }}
+        onClick={changeStation}
         className="w-2/12 sm:w-1/12 flex items-start justify-center m-1"
       >
         <StationCardImage station={station} />
       </button>
-      <div className="flex-1 flex-col justify-between ml-2 overflow-hidden">
+      <div
+        className="flex-1 flex-col justify-between ml-2 overflow-hidden"
+        onClick={changeStation}
+      >
         <h3 className="sm:text-xl text-lg font-bold overflow-hidden text-ellipsis pb-2">
           {station.name}
         </h3>
