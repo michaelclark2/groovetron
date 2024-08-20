@@ -72,7 +72,7 @@ export default function NowPlaying() {
       return (
         <button
           onClick={action}
-          className="bg-slate-100 rounded-full p-1 mx-1 mb-3 flex justify-center items-center w-[30px] h-[30px]"
+          className="bg-slate-100 rounded-full p-1 mb-3 flex justify-center items-center w-[30px] h-[30px]"
         >
           {icon}
         </button>
@@ -127,14 +127,14 @@ export default function NowPlaying() {
             {isCollapsed ? <IconCaretDown /> : <IconCaretUp />}
           </button>
           <div className="hidden sm:flex flex-col justify-between">
-            <div className="flex justify-between">{renderOptions()}</div>
+            <div className="flex justify-between gap-2">{renderOptions()}</div>
             <VolumeControls />
           </div>
         </div>
         {isCollapsed ? null : (
           <div className="mt-4 sm:hidden">
             <div className="flex flex-col xxs:flex-row">
-              <div className="flex justify-between xxs:justify-normal">
+              <div className="flex justify-between xxs:justify-normal gap-2 xxs:mr-2">
                 {renderOptions()}
               </div>
               <div className="w-full">
