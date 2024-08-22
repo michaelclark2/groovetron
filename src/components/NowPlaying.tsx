@@ -109,6 +109,7 @@ export default function NowPlaying() {
                 speed={30}
                 delay={5}
                 pauseOnHover
+                pauseOnClick
                 className="gap-4"
                 loop={shouldMarquee ? 0 : 1}
                 onMount={checkMarqueeSize}
