@@ -41,7 +41,7 @@ export default function NowPlaying() {
   );
 
   useEffect(() => {
-    checkMarqueeSize();
+    if (songPlaying !== "") checkMarqueeSize();
   }, [songPlaying]);
 
   const handleSaveSong = () => {
@@ -111,7 +111,7 @@ export default function NowPlaying() {
                 pauseOnHover
                 className="gap-2"
                 play={shouldMarquee}
-                loop={shouldMarquee ? 0 : 1}
+                loop={shouldMarquee ? 0 : 2}
                 onMount={checkMarqueeSize}
               >
                 <p id="currentTrack" className="overflow-hidden mr-6">

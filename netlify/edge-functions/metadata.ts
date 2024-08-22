@@ -8,6 +8,7 @@ export default async (req: Request, context: Context) => {
       headers: {
         "Icy-MetaData": "1",
       },
+      signal: AbortSignal.timeout(10000),
     });
     const metaInt = streamRes.headers.get("icy-metaint", 0);
     if (metaInt) {
