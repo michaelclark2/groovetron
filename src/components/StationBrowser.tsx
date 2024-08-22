@@ -1,4 +1,9 @@
-import { CountryResult, Station, StationSearchOrder } from "radio-browser-api";
+import {
+  AdvancedStationQuery,
+  CountryResult,
+  Station,
+  StationSearchOrder,
+} from "radio-browser-api";
 import { useRadioBrowser } from "../context/RadioBrowserContext";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import StationsPagination from "./StationsPagination";
@@ -48,7 +53,7 @@ export default function StationBrowser() {
 
   useEffect(() => {
     const debouncedSearchSubmitId = setTimeout(async () => {
-      if (searchTerm === "") {
+      if (searchTerm === "" && tagList.length === 0) {
         setSearchResults([]);
         return;
       }
@@ -68,7 +73,7 @@ export default function StationBrowser() {
           ] as (keyof typeof StationSearchOrder)[]
         ).includes(sortBy),
         limit: 300, // TODO: remove this, and truncate bullets in StationsPagination
-      } as { [key: string]: any };
+      } as { [key: string]: any } & AdvancedStationQuery;
       if (codecSelect) searchOptions["codec"] = codecSelect;
       setIsLoading(true);
       const results = await RadioBrowser.searchStations(searchOptions);
@@ -232,8 +237,11 @@ export default function StationBrowser() {
           <div className="tags flex flex-col gap-2">
             <label htmlFor="tags">Tags:</label>
             <div className="tag-box flex flex-wrap  items-center gap-1 bg-white rounded-xl overflow-hidden p-2">
-              {tagList?.map((tag) => (
-                <div className="tag bg-green-200 rounded-full px-2 text-sm flex items-center">
+              {tagList?.map((tag, i) => (
+                <div
+                  key={tag + i}
+                  className="tag bg-green-200 rounded-full px-2 text-sm flex items-center"
+                >
                   <span>{tag}</span>
                   <button onClick={() => removeTag(tag)}>
                     <IconX size={16} />
@@ -286,15 +294,11 @@ export default function StationBrowser() {
                 name="codec"
                 className="w-full rounded-full bg-white focus:outline-none"
                 onChange={handleCodecChange}
+                value={codecSelect}
               >
                 <option />
                 {codecs?.map((codec) => (
-                  <option
-                    selected={codec.name === codecSelect}
-                    value={codec.name}
-                  >
-                    {codec.name}
-                  </option>
+                  <option value={codec.name}>{codec.name}</option>
                 ))}
               </select>
             </div>
@@ -305,12 +309,11 @@ export default function StationBrowser() {
               name="language"
               className="w-full rounded-full bg-white focus:outline-none"
               onChange={handleLanguageChange}
+              value={language}
             >
               <option />
               {languages?.map((lang: CountryResult) => (
-                <option selected={lang.name === language} value={lang.name}>
-                  {lang.name}
-                </option>
+                <option value={lang.name}>{lang.name}</option>
               ))}
             </select>
           </div>
@@ -320,6 +323,7 @@ export default function StationBrowser() {
               name="country"
               className="w-full rounded-full bg-white focus:outline-none"
               onChange={handleCountryChange}
+              value={country}
             >
               <option />
               {countries?.map((country: CountryResult) => (

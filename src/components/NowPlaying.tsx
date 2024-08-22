@@ -96,8 +96,8 @@ export default function NowPlaying() {
 
   if (Object.keys(nowPlaying).length === 0) return;
   return (
-    <div className="m-2 mx-auto truncate">
-      <div className="p-4 rounded-xl flex bg-slate-300 flex-col">
+    <div className="m-2 mx-auto truncate rounded-xl">
+      <div className="p-4 flex bg-slate-300 flex-col">
         <div className="flex items-start justify-between">
           <div className="flex justify-center mr-4">
             <PlayButton size={40} />
