@@ -109,9 +109,8 @@ export default function NowPlaying() {
                 speed={30}
                 delay={5}
                 pauseOnHover
-                className="gap-2"
-                play={shouldMarquee}
-                loop={shouldMarquee ? 0 : 2}
+                className="gap-4"
+                loop={shouldMarquee ? 0 : 1}
                 onMount={checkMarqueeSize}
               >
                 <p id="currentTrack" className="overflow-hidden mr-6">
