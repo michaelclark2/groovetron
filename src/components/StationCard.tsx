@@ -88,7 +88,7 @@ export default function StationCard({ station }: { station: Station }) {
   const { userData, addToFaves, removeFromFaves } = useUserData();
   const { nowPlaying, setNowPlaying } = usePlayer();
   const isStationNowPlaying = station.id === nowPlaying?.id;
-  const activeClasses = "ring ring-blue-500";
+  const activeClasses = "bg-slate-300 rounded-tl-xl";
   const isStationInFavs = userData?.favs?.some(
     (fav: Station) => fav.id === station.id
   );
@@ -101,7 +101,7 @@ export default function StationCard({ station }: { station: Station }) {
   return (
     <div
       className={
-        "flex p-2 rounded-xl bg-slate-200 " +
+        "flex p-2 border-r-2 border-b-2 rounded-br-xl border-black " +
         (isStationNowPlaying ? activeClasses : "")
       }
     >

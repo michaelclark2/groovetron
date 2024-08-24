@@ -47,7 +47,7 @@ export default function StationsPagination({
     setOffset(pageNumber);
   };
   return (
-    <div className="bg-slate-100 rounded-xl p-2 gap-y-4 flex flex-col">
+    <div className="rounded-xl py-2 gap-y-4 flex flex-col">
       {title !== "" && <h3 className="text-xl">{title}</h3>}
       {currentStations.length
         ? currentStations?.map((station) => (

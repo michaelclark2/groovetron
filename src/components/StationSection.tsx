@@ -20,34 +20,42 @@ export default function StationSection() {
   };
 
   const navClasses =
-    "bg-blue-200 text-sm font-bold rounded-xl p-2 px-4 sm:px-8";
+    "bg-blue-200 text-sm font-bold rounded-xl p-2 px-4 sm:px-8 border-2 border-black ";
 
-  const activeClasses = " bg-green-200";
+  const activeClasses = "bg-green-200 layer-2";
 
   return (
     <section>
-      <div className="flex justify-between mb-2 sm:justify-around">
+      <nav className="flex justify-between my-4">
         <button
-          className={navClasses + (sectionState === "favs" && activeClasses)}
+          className={
+            navClasses + (sectionState === "favs" ? activeClasses : "layer-1")
+          }
           onClick={() => setSectionState("favs")}
         >
           Favorites
         </button>
         <button
-          className={navClasses + (sectionState === "browse" && activeClasses)}
+          className={
+            navClasses + (sectionState === "browse" ? activeClasses : "layer-1")
+          }
           onClick={() => setSectionState("browse")}
         >
           Browse
         </button>
         <button
-          className={navClasses + (sectionState === "songs" && activeClasses)}
+          className={
+            navClasses + (sectionState === "songs" ? activeClasses : "layer-1")
+          }
           onClick={() => setSectionState("songs")}
         >
           Songs
         </button>
-      </div>
+      </nav>
 
-      <div>{displayStationSection(sectionState)}</div>
+      <div className="layer-1 rounded-xl border-4 border-black">
+        {displayStationSection(sectionState)}
+      </div>
     </section>
   );
 }

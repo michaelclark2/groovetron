@@ -1,5 +1,20 @@
-@import url("https://fonts.googleapis.com/css2?family=Matemasie&family=Rubik+Mono+One&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Matemasie&family=Public Sans&display=swap");
 
 .title {
   font-family: "Matemasie";
+}
+
+body {
+  font-family: "Public Sans";
+  background-color: aquamarine;
+}
+
+.layer-0 {
+  box-shadow: 0.125em 0.125em black;
+}
+.layer-1 {
+  box-shadow: 0.25em 0.25em black;
+}
+.layer-2 {
+  box-shadow: 0.5em 0.5em black;
 }
