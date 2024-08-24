@@ -1,27 +1,25 @@
 import { PuffLoader } from "react-spinners";
 import {
   IconPlayerPlayFilled,
-  IconPlayerStopFilled,
+  IconPlayerPauseFilled,
 } from "@tabler/icons-react";
 import { usePlayer } from "../context/PlayerContext";
 
-export default function PlayButton({ size }: { size: number }) {
+export default function PlayButton({ className }: { className?: string }) {
   const { isPlaying, setIsPlaying, isLoading } = usePlayer();
   return (
     <button
       onClick={() => {
         setIsPlaying(!isPlaying);
       }}
-      className={`p-4 bg-green-500 rounded-full h-[${
-        size * 2
-      }px] flex justify-center items-center`}
+      className={className}
     >
       {isLoading ? (
-        <PuffLoader size={size} color="green" />
+        <PuffLoader size={"1.5em"} color="green" />
       ) : isPlaying ? (
-        <IconPlayerStopFilled size={size} />
+        <IconPlayerPauseFilled />
       ) : (
-        <IconPlayerPlayFilled size={size} />
+        <IconPlayerPlayFilled />
       )}
     </button>
   );

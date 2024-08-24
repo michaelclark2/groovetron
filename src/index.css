@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  background-color: #fcd34d;
+}
+.top-spacer {
+  box-shadow: 4px 4px #fcd34d;
+}
