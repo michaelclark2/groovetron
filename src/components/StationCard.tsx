@@ -101,7 +101,7 @@ export default function StationCard({ station }: { station: Station }) {
   return (
     <div
       className={
-        "flex p-2 border-r-2 border-b-2 rounded-br-xl border-black " +
+        "flex p-2 border-r-2 border-b-2 rounded-br-xl border-black transition " +
         (isStationNowPlaying ? activeClasses : "")
       }
     >

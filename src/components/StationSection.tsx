@@ -20,7 +20,7 @@ export default function StationSection() {
   };
 
   const navClasses =
-    "bg-blue-200 text-sm font-bold rounded-xl p-2 px-4 sm:px-8 border-2 border-black ";
+    "bg-blue-200 text-sm font-bold rounded-xl p-2 px-4 sm:px-8 border-4 border-black transition ";
 
   const activeClasses = "bg-green-200 layer-2";
 
