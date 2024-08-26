@@ -71,6 +71,10 @@ export function PlayerContextProvider({ children }: { children: any }) {
     }
   }, [isPlaying]);
 
+  useEffect(() => {
+    setSongPlaying("");
+  }, [nowPlaying]);
+
   return (
     <PlayerContext.Provider
       value={{

@@ -15,7 +15,7 @@ export default function PlayButton({ className }: { className?: string }) {
       className={className}
     >
       {isLoading ? (
-        <PuffLoader size={"1em"} color="green" />
+        <PuffLoader size={"1.5em"} color="green" />
       ) : isPlaying ? (
         <IconPlayerPauseFilled />
       ) : (
