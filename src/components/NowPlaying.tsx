@@ -117,46 +117,51 @@ export default function NowPlaying() {
 
   if (Object.keys(nowPlaying).length === 0) return;
   return (
-    <div className="m-2 mx-auto truncate rounded-xl bg-white sticky top-2 border-4 border-black layer-1">
-      <div className="p-4 flex flex-col">
-        <div className="flex items-start justify-between">
-          <div className="flex-1 overflow-hidden NowPlayingTitle">
-            <StationTitle station={nowPlaying} />
-            {songPlaying && (
-              <Marquee
-                speed={30}
-                delay={5}
-                pauseOnHover
-                pauseOnClick
-                className="gap-4"
-                play={shouldMarquee}
-                loop={shouldMarquee ? 0 : 1}
-                onMount={checkMarqueeSize}
-              >
-                <p id="currentTrack" className="overflow-hidden mr-6">
-                  {songPlaying}
-                </p>
-              </Marquee>
-            )}
-          </div>
-
-          <div className="hidden md:flex flex-col justify-between gap-2">
-            <div className="flex justify-between gap-2">{renderOptions()}</div>
-            <VolumeControls />
-          </div>
-        </div>
-
-        <div className="mt-4 md:hidden">
-          <div className="flex flex-col sm:flex-row gap-2">
-            <div className="flex justify-between xs:justify-normal gap-2 xs:mr-2">
-              {renderOptions()}
+    <>
+      <div className="bg-amber-300 h-4 sticky -m-2 top-0 top-spacer"></div>
+      <div className="m-2 mx-auto truncate rounded-xl bg-white sticky top-2 border-4 border-black layer-1">
+        <div className="p-4 flex flex-col">
+          <div className="flex items-start justify-between">
+            <div className="flex-1 overflow-hidden NowPlayingTitle">
+              <StationTitle station={nowPlaying} />
+              {songPlaying && (
+                <Marquee
+                  speed={30}
+                  delay={5}
+                  pauseOnHover
+                  pauseOnClick
+                  className="gap-4"
+                  play={shouldMarquee}
+                  loop={shouldMarquee ? 0 : 1}
+                  onMount={checkMarqueeSize}
+                >
+                  <p id="currentTrack" className="overflow-hidden mr-6">
+                    {songPlaying}
+                  </p>
+                </Marquee>
+              )}
             </div>
-            <div className="w-full">
+
+            <div className="hidden md:flex flex-col justify-between gap-2">
+              <div className="flex justify-between gap-2">
+                {renderOptions()}
+              </div>
               <VolumeControls />
+            </div>
+          </div>
+
+          <div className="mt-4 md:hidden">
+            <div className="flex flex-col sm:flex-row gap-2">
+              <div className="flex justify-between xs:justify-normal gap-2 xs:mr-2">
+                {renderOptions()}
+              </div>
+              <div className="w-full">
+                <VolumeControls />
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

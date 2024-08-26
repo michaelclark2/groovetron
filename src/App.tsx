@@ -8,7 +8,7 @@ function App() {
       <h1 className="text-4xl xxs:text-5xl sm:text-6xl 2xl:text-7xl text-center title mb-4">
         Groovetron
       </h1>
-      <div className="bg-amber-300 h-4 sticky -m-2 top-0 top-spacer"></div>
+
       <NowPlaying />
       <StationSection />
     </main>
