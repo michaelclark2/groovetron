@@ -49,11 +49,11 @@ export default function StationSection() {
           }
           onClick={() => setSectionState("songs")}
         >
-          Songs
+          Tracks
         </button>
       </nav>
 
-      <div className="layer-1 rounded-xl border-4 border-black">
+      <div className="layer-1 rounded-xl border-4 border-black bg-white">
         {displayStationSection(sectionState)}
       </div>
     </section>

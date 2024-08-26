@@ -2,9 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  overflow-y: overlay;
+  scrollbar-gutter: stable;
+}
+
 body {
   background-color: #fcd34d;
 }
+
 .top-spacer {
   box-shadow: 4px 4px #fcd34d;
 }

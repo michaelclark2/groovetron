@@ -67,7 +67,7 @@ export default function NowPlaying() {
     const options = [<PlayButton className="" />];
 
     const baseStyles =
-      "rounded-full p-1 flex justify-center items-center w-[30px] h-[30px]";
+      "rounded-full p-1 flex justify-center items-center w-[30px] h-[30px] border-2 border-black layer-0 ";
 
     return (
       <>
@@ -82,7 +82,11 @@ export default function NowPlaying() {
           className={"bg-pink-300 " + baseStyles}
           onClick={handleFavStation}
         >
-          {isStationInFavs ? <IconStarFilled /> : <IconStar />}
+          {isStationInFavs ? (
+            <IconStarFilled className="fill-amber-300 stroke stroke-black" />
+          ) : (
+            <IconStar />
+          )}
         </button>
         <button
           className={"bg-blue-300 " + baseStyles}
@@ -101,11 +105,6 @@ export default function NowPlaying() {
         </button>
       </>
     );
-    return options.map((option) => (
-      <span key={option.type} className={baseStyles}>
-        {option}
-      </span>
-    ));
   };
 
   const checkMarqueeSize = () => {
@@ -148,8 +147,8 @@ export default function NowPlaying() {
         </div>
 
         <div className="mt-4 md:hidden">
-          <div className="flex flex-col xxs:flex-row gap-2">
-            <div className="flex justify-between xxs:justify-normal gap-2 xxs:mr-2">
+          <div className="flex flex-col sm:flex-row gap-2">
+            <div className="flex justify-between xs:justify-normal gap-2 xs:mr-2">
               {renderOptions()}
             </div>
             <div className="w-full">

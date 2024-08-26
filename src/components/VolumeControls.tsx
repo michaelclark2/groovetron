@@ -34,7 +34,7 @@ export default function VolumeControls() {
     return icon;
   };
   return (
-    <div className="py-1 bg-slate-200 rounded-full flex justify-center">
+    <div className="py-1 bg-slate-200 rounded-full flex justify-center border-2 border-black layer-0">
       <button
         className="pl-1"
         onClick={() => {

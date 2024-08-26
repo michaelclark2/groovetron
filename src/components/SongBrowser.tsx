@@ -4,7 +4,7 @@ export default function SongBrowser() {
   const { userData } = useUserData();
 
   return (
-    <div className="flex flex-col gap-6 bg-slate-200 rounded-xl p-2">
+    <div className="flex flex-col gap-6 rounded-xl p-2">
       <h3 className="text-3xl p-2">Saved Tracks</h3>
       <div className="w-full flex flex-col gap-4">
         {userData?.songs?.map((song: Song) => (
