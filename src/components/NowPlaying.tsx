@@ -64,8 +64,6 @@ export default function NowPlaying() {
   };
 
   const renderOptions = () => {
-    const options = [<PlayButton className="" />];
-
     const baseStyles =
       "rounded-full p-1 flex justify-center items-center w-[30px] h-[30px] border-2 border-black layer-0 ";
 
