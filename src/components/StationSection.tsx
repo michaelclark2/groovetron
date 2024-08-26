@@ -1,8 +1,8 @@
 import { useState } from "react";
 import StationBrowser from "./StationBrowser";
 import FavoritesBrowser from "./FavoritesBrowser";
-import SongBrowser from "./SongBrowser";
-export type SectionState = string | "browse" | "favs" | "songs";
+import TrackBrowser from "./TrackBrowser";
+export type SectionState = string | "browse" | "favs" | "tracks";
 
 export default function StationSection() {
   const [sectionState, setSectionState] = useState<SectionState>("browse");
@@ -12,8 +12,8 @@ export default function StationSection() {
         return <StationBrowser />;
       case "favs":
         return <FavoritesBrowser />;
-      case "songs":
-        return <SongBrowser />;
+      case "tracks":
+        return <TrackBrowser />;
       default:
         break;
     }
@@ -45,9 +45,9 @@ export default function StationSection() {
         </button>
         <button
           className={
-            navClasses + (sectionState === "songs" ? activeClasses : "layer-1")
+            navClasses + (sectionState === "tracks" ? activeClasses : "layer-1")
           }
-          onClick={() => setSectionState("songs")}
+          onClick={() => setSectionState("tracks")}
         >
           Tracks
         </button>
