@@ -113,7 +113,11 @@ function Cursor({ position }: { position: any }) {
   );
 }
 
-export default function StationSection() {
+export default function StationSection({
+  showBrowser,
+}: {
+  showBrowser: boolean;
+}) {
   const [sectionState, setSectionState] = useState<SectionState>("browse");
   const displayStationSection = (sectionState: SectionState) => {
     switch (sectionState) {
@@ -128,8 +132,16 @@ export default function StationSection() {
     }
   };
 
+  const show = {
+    opacity: 1,
+    display: "block",
+  };
+  const hide = {
+    opacity: showBrowser ? 1 : 0,
+    transitionEnd: { display: "none" },
+  };
   return (
-    <section className="transition">
+    <motion.section animate={showBrowser ? show : hide}>
       <SlideTabs
         setSectionState={setSectionState}
         sectionState={sectionState}
@@ -138,6 +150,6 @@ export default function StationSection() {
       <div className="layer-1 rounded-xl border-4 border-black bg-white">
         {displayStationSection(sectionState)}
       </div>
-    </section>
+    </motion.section>
   );
 }

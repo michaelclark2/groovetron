@@ -14,7 +14,7 @@ function App() {
 
       <NowPlaying showBrowser={showBrowser} setShowBrowser={setShowBrowser} />
 
-      {showBrowser && <StationSection />}
+      <StationSection showBrowser={showBrowser} />
     </main>
   );
 }

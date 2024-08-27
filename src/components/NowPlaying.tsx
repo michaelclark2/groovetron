@@ -95,7 +95,7 @@ export default function NowPlaying({
           onClick={handleFavStation}
         >
           {isStationInFavs ? (
-            <IconStarFilled className="fill-amber-300 stroke stroke-black" />
+            <IconStarFilled className="fill-amber-300 stroke-2 stroke-black" />
           ) : (
             <IconStar />
           )}
