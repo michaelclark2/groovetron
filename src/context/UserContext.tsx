@@ -3,10 +3,10 @@ import { createContext, useContext, useEffect, useState } from "react";
 
 class UserData {
   favs = [] as Station[];
-  songs = [] as Song[];
+  tracks = [] as Track[];
 }
 
-export type Song = {
+export type Track = {
   track: string;
   station: Station;
   timestamp: Date;
@@ -18,7 +18,7 @@ export function UserContextProvider({ children }: { children: any }) {
   const [userData, setUserData] = useState(new UserData());
 
   useEffect(() => {
-    if (userData?.favs.length > 0 || userData?.songs.length > 0) {
+    if (userData?.favs.length > 0 || userData?.tracks.length > 0) {
       saveUserDataToLocalStorage(userData);
     }
   }, [userData]);
@@ -51,15 +51,15 @@ export function UserContextProvider({ children }: { children: any }) {
     }
   };
 
-  const addToSongs = (song: Song) => {
-    const newSongs = [...userData.songs, song];
-    const newUserData = { ...userData, songs: newSongs };
+  const addToSongs = (song: Track) => {
+    const newSongs = [...userData.tracks, song];
+    const newUserData = { ...userData, tracks: newSongs };
     setUserData(newUserData);
   };
 
-  const removeFromSongs = (song: Song) => {
-    const newSongs = userData.songs.filter(
-      (s) => s.track !== song.track && s.station.id !== song.station.id
+  const removeFromSongs = (track: Track) => {
+    const newSongs = userData.tracks.filter(
+      (s) => s.track !== track.track && s.station.id !== track.station.id
     );
     const newUserData = { ...userData, songs: newSongs };
     setUserData(newUserData);

@@ -20,7 +20,6 @@ export default function VolumeControls() {
   const handleVolumeChange = (e: ChangeEvent) => {
     const input = e.target as HTMLInputElement;
     setCurrentVolume(input.valueAsNumber);
-    // audioRef.volume = input.valueAsNumber;
   };
 
   const renderVolumeIcon = () => {
@@ -34,9 +33,9 @@ export default function VolumeControls() {
     return icon;
   };
   return (
-    <div className="py-1 bg-slate-200 rounded-full flex justify-center">
+    <div className="py-1 bg-slate-200 rounded-full flex justify-center items-center border-2 border-black layer-0 max-h-8">
       <button
-        className="pl-1"
+        className="pl-1 max-w-8 max-h-8"
         onClick={() => {
           !isMuted && setMutedVolume(currentVolume);
           setCurrentVolume(isMuted ? mutedVolume : 0);

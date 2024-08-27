@@ -8,12 +8,12 @@ import { PlayerContextProvider } from "./context/PlayerContext.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <UserContextProvider>
-      <PlayerContextProvider>
-        <RadioBrowserProvider>
+    <RadioBrowserProvider>
+      <UserContextProvider>
+        <PlayerContextProvider>
           <App />
-        </RadioBrowserProvider>
-      </PlayerContextProvider>
-    </UserContextProvider>
+        </PlayerContextProvider>
+      </UserContextProvider>
+    </RadioBrowserProvider>
   </StrictMode>
 );
