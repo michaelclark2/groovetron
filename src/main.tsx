@@ -7,13 +7,13 @@ import { UserContextProvider } from "./context/UserContext.tsx";
 import { PlayerContextProvider } from "./context/PlayerContext.tsx";
 
 createRoot(document.getElementById("root")!).render(
-  <RadioBrowserProvider>
-    <StrictMode>
+  <StrictMode>
+    <RadioBrowserProvider>
       <UserContextProvider>
         <PlayerContextProvider>
           <App />
         </PlayerContextProvider>
       </UserContextProvider>
-    </StrictMode>
-  </RadioBrowserProvider>
+    </RadioBrowserProvider>
+  </StrictMode>
 );
