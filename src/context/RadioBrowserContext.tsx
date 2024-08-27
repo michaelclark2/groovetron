@@ -36,7 +36,7 @@ export function RadioBrowserProvider({ children }: { children: any }) {
         setTopVotes(votes);
       }
     };
-    window.addEventListener("load", getInitialData, { once: true });
+    getInitialData();
   }, []);
 
   return (
