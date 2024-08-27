@@ -15,7 +15,7 @@ function StationTags({ station }: { station: Station }) {
   const Bitrate = ({ station }: { station: Station }) => {
     if (station?.bitrate == 0) return null;
     return (
-      <div className="bg-pink-300 p-1 rounded-md text-xs">
+      <div className="bg-secondary p-1 rounded-md text-xs">
         {station.bitrate} Kb/s {station.codec}
       </div>
     );
@@ -33,14 +33,14 @@ function StationTags({ station }: { station: Station }) {
     };
     return (
       <div
-        className="bg-blue-200 p-1 rounded-md text-xs"
+        className="bg-[#A8E6CF] p-1 rounded-md text-xs"
         onClick={() => setShowTitle(!showTitle)}
         onMouseOver={() => setShowTitle(true)}
         onMouseLeave={() => setShowTitle(false)}
       >
         {getFlagEmoji(station.countryCode)}
         {showTitle ? (
-          <span className="absolute block p-1 mt-2 rounded-md bg-blue-200">
+          <span className="absolute block p-1 mt-2 rounded-md bg-[#A8E6CF]">
             {station.country}
           </span>
         ) : null}
@@ -49,7 +49,7 @@ function StationTags({ station }: { station: Station }) {
   };
   const ClickCount = ({ station }: { station: Station }) => {
     return (
-      <div className="bg-orange-300 p-1 rounded-md text-xs flex items-center">
+      <div className="bg-[#FF85B3] p-1 rounded-md text-xs flex items-center">
         {station?.clickCount}
         <IconPlayerPlayFilled size={12} />
       </div>
@@ -59,14 +59,14 @@ function StationTags({ station }: { station: Station }) {
     const { tags } = station;
 
     return tags.map((tag) => (
-      <div key={tag} className="bg-green-300 p-1 rounded-md text-xs">
+      <div key={tag} className="bg-[#FFC2A1]  p-1 rounded-md text-xs">
         {tag}
       </div>
     ));
   };
   const VoteCount = ({ station }: { station: Station }) => {
     return (
-      <div className="bg-yellow-300 p-1 rounded-md text-xs flex items-center">
+      <div className="bg-secondary-alt p-1 rounded-md text-xs flex items-center">
         {station?.votes}
         <IconStarFilled size={12} />
       </div>
@@ -88,7 +88,7 @@ export default function StationCard({ station }: { station: Station }) {
   const { userData, addToFaves, removeFromFaves } = useUserData();
   const { nowPlaying, setNowPlaying } = usePlayer();
   const isStationNowPlaying = station.id === nowPlaying?.id;
-  const activeClasses = "bg-slate-300 rounded-tl-xl";
+  const activeClasses = "bg-neutral-200 rounded-tl-xl layer-0";
   const isStationInFavs = userData?.favs?.some(
     (fav: Station) => fav.id === station.id
   );
@@ -101,7 +101,7 @@ export default function StationCard({ station }: { station: Station }) {
   return (
     <div
       className={
-        "flex p-2 border-r-2 border-b-2 rounded-br-xl border-black transition layer-0 " +
+        "flex p-2 border-r-2 border-b-2 rounded-br-xl border-black transition layer- " +
         (isStationNowPlaying ? activeClasses : "")
       }
     >

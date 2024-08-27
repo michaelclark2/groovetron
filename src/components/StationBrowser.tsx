@@ -205,7 +205,7 @@ export default function StationBrowser() {
             </label>
             <select
               onChange={handleSortByChange}
-              className="focus-visible:outline-none rounded-full"
+              className="focus-visible:outline-none rounded-full bg-white"
               name="sortBy"
             >
               {Object.keys(sortOptions).map((option) => (

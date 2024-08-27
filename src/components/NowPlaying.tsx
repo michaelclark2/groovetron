@@ -79,7 +79,7 @@ export default function NowPlaying({
 
   const renderOptions = () => {
     const baseStyles =
-      "rounded-full p-1 flex justify-center items-center border-2 border-black max-w-8 max-h-8 layer-0 ";
+      "rounded-full p-1 flex justify-center items-center border-2 border-black max-w-8 max-h-8 layer-0";
 
     return (
       <>
