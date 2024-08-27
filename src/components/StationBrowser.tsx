@@ -214,7 +214,7 @@ export default function StationBrowser() {
             </select>
           </div>
           <button
-            className="p-2 bg-purple-400 rounded-full border-2 border-black layer-0"
+            className="p-2 bg-secondary rounded-full border-2 border-black layer-0"
             onClick={() => setShowFilters(!showFilters)}
           >
             <IconFilterCog />

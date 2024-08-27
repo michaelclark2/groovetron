@@ -64,7 +64,7 @@ function Tab({
 }) {
   const ref = useRef(null);
   const tabIsActive = name === sectionState;
-  const activeClasses = "bg-green-500";
+  const activeClasses = "bg-primary";
   return (
     <li
       ref={ref}
@@ -108,7 +108,7 @@ function Cursor({ position }: { position: any }) {
   return (
     <motion.li
       animate={{ ...position }}
-      className="absolute bg-green-300 h-8 rounded-lg"
+      className="absolute bg-primary h-8 rounded-lg"
     />
   );
 }
@@ -129,7 +129,7 @@ export default function StationSection() {
   };
 
   return (
-    <section>
+    <section className="transition">
       <SlideTabs
         setSectionState={setSectionState}
         sectionState={sectionState}

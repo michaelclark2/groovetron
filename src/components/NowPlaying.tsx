@@ -83,15 +83,15 @@ export default function NowPlaying({
 
     return (
       <>
-        <PlayButton className={"bg-green-500 " + baseStyles} />
+        <PlayButton className={"bg-primary " + baseStyles} />
         <button
-          className={"bg-orange-300 " + baseStyles}
+          className={"bg-secondary " + baseStyles}
           onClick={handleSaveSong}
         >
           <IconDeviceFloppy />
         </button>
         <button
-          className={"bg-pink-300 " + baseStyles}
+          className={"bg-secondary-alt " + baseStyles}
           onClick={handleFavStation}
         >
           {isStationInFavs ? (
@@ -101,18 +101,21 @@ export default function NowPlaying({
           )}
         </button>
         <button
-          className={"bg-blue-300 " + baseStyles}
+          className={"bg-[#A8E6CF] " + baseStyles}
           onClick={handleHomePage}
         >
           <IconHome />
         </button>
         <button
-          className={"bg-violet-300 " + baseStyles}
+          className={"bg-[#FF85B3] " + baseStyles}
           onClick={handleBrowser}
         >
           <IconMusic />
         </button>
-        <button className={"bg-red-300 " + baseStyles} onClick={handleSettings}>
+        <button
+          className={"bg-[#FFC2A1] " + baseStyles}
+          onClick={handleSettings}
+        >
           <IconSettings />
         </button>
       </>
@@ -130,7 +133,7 @@ export default function NowPlaying({
   if (Object.keys(nowPlaying).length === 0) return;
   return (
     <>
-      <div className="z-50 bg-amber-300 h-4 sticky -m-2 top-0 top-spacer" />
+      <div className="z-50 bg-back h-4 sticky -m-2 top-0 shadow-back shadow-[4px_4px]" />
       <div className="z-50 m-2 mx-auto truncate rounded-xl bg-white sticky top-2 border-4 border-black layer-1">
         <div className="p-4 flex flex-col">
           <div className="flex items-start justify-between">
