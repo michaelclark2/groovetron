@@ -12,6 +12,7 @@
   "dependencies": {
     "@netlify/edge-functions": "^2.10.0",
     "@tabler/icons-react": "^3.12.0",
+    "framer-motion": "^11.3.30",
     "generate-avatar": "^1.4.10",
     "icecast-metadata-js": "^1.2.8",
     "icecast-metadata-player": "^1.17.3",
