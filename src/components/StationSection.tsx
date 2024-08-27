@@ -72,7 +72,6 @@ function Tab({
         setSectionState(name);
       }}
       onMouseEnter={() => {
-        console.log(tabIsActive);
         if (!ref?.current || tabIsActive) return;
 
         const currentRef: HTMLElement = ref.current;

@@ -24,7 +24,6 @@ export function RadioBrowserProvider({ children }: { children: any }) {
   useEffect(() => {
     const getInitialData = async () => {
       if (recentClicks.length === 0) {
-        console.log(recentClicks);
         const clicks = await RadioBrowser.getStationsByRecentClicks(20);
         const votes = await RadioBrowser.getStationsByVotes(20);
         const allLanguages = await RadioBrowser.getLanguages();

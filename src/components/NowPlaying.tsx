@@ -130,7 +130,7 @@ export default function NowPlaying({
   if (Object.keys(nowPlaying).length === 0) return;
   return (
     <>
-      <div className="z-50 bg-amber-300 h-4 sticky -m-2 top-0 top-spacer"></div>
+      <div className="z-50 bg-amber-300 h-4 sticky -m-2 top-0 top-spacer" />
       <div className="z-50 m-2 mx-auto truncate rounded-xl bg-white sticky top-2 border-4 border-black layer-1">
         <div className="p-4 flex flex-col">
           <div className="flex items-start justify-between">
