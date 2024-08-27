@@ -11,10 +11,9 @@ import { RingLoader } from "react-spinners";
 import { IconFilterCog, IconSearch, IconX } from "@tabler/icons-react";
 
 export default function StationBrowser() {
-  const RadioBrowser = useRadioBrowser();
+  const { RadioBrowser, recentClicks, topVotes, languages, countries, codecs } =
+    useRadioBrowser();
   const [isLoading, setIsLoading] = useState(true);
-  const [recentClicks, setRecentClicks] = useState<Station[]>([]);
-  const [topVotes, setTopVotes] = useState<Station[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState<Station[]>([]);
 
@@ -22,9 +21,7 @@ export default function StationBrowser() {
   const [sortBy, setSortBy] = useState<keyof typeof StationSearchOrder>(
     StationSearchOrder.name
   );
-  const [languages, setLanguages] = useState([] as CountryResult[]);
-  const [countries, setCountries] = useState([] as CountryResult[]);
-  const [codecs, setCodecs] = useState([] as CountryResult[]);
+
   const [tagInput, setTagInput] = useState("");
   const [tagList, setTagList] = useState([] as string[]);
   const [bitrateMin, setBitrateMin] = useState("0");
@@ -34,22 +31,10 @@ export default function StationBrowser() {
   const [country, setCountry] = useState("");
 
   useEffect(() => {
-    const getInitialData = async () => {
-      setIsLoading(true);
-      const recentClicks = await RadioBrowser.getStationsByRecentClicks(20);
-      const topVotes = await RadioBrowser.getStationsByVotes(20);
-      const allLanguages = await RadioBrowser.getLanguages();
-      const allCountries = await RadioBrowser.getCountries();
-      const allCodecs = await RadioBrowser.getCodecs();
-      setLanguages(allLanguages);
-      setCountries(allCountries);
-      setCodecs(allCodecs);
-      setRecentClicks(recentClicks);
-      setTopVotes(topVotes);
+    if (recentClicks.length > 0) {
       setIsLoading(false);
-    };
-    getInitialData();
-  }, []);
+    }
+  }, [recentClicks]);
 
   useEffect(() => {
     const debouncedSearchSubmitId = setTimeout(async () => {

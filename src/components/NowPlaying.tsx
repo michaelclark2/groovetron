@@ -23,7 +23,13 @@ function StationTitle({ station }: { station: Station }) {
   );
 }
 
-export default function NowPlaying() {
+export default function NowPlaying({
+  showBrowser,
+  setShowBrowser,
+}: {
+  showBrowser: boolean;
+  setShowBrowser: Function;
+}) {
   const { userData, addToFaves, removeFromFaves, addToSongs } = useUserData();
   const { nowPlaying, songPlaying } = usePlayer();
   const [shouldMarquee, setShouldMarquee] = useState(false);
@@ -63,6 +69,10 @@ export default function NowPlaying() {
     window.open(nowPlaying.homepage, "__blank");
   };
 
+  const handleBrowser = () => {
+    setShowBrowser(!showBrowser);
+  };
+
   const handleSettings = () => {
     console.log("settings");
   };
@@ -98,7 +108,7 @@ export default function NowPlaying() {
         </button>
         <button
           className={"bg-violet-300 " + baseStyles}
-          onClick={handleHomePage}
+          onClick={handleBrowser}
         >
           <IconMusic />
         </button>

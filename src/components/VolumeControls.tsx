@@ -20,7 +20,6 @@ export default function VolumeControls() {
   const handleVolumeChange = (e: ChangeEvent) => {
     const input = e.target as HTMLInputElement;
     setCurrentVolume(input.valueAsNumber);
-    // audioRef.volume = input.valueAsNumber;
   };
 
   const renderVolumeIcon = () => {
