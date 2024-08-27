@@ -8,7 +8,12 @@ import { useRadioBrowser } from "../context/RadioBrowserContext";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import StationsPagination from "./StationsPagination";
 import { RingLoader } from "react-spinners";
-import { IconFilterCog, IconSearch, IconX } from "@tabler/icons-react";
+import {
+  IconFilterCog,
+  IconSearch,
+  IconTags,
+  IconX,
+} from "@tabler/icons-react";
 
 export default function StationBrowser() {
   const { RadioBrowser, recentClicks, topVotes, languages, countries, codecs } =
@@ -87,7 +92,7 @@ export default function StationBrowser() {
   };
 
   const displayedStations =
-    searchResults.length || searchTerm ? (
+    searchResults.length || searchTerm !== "" || tagList.length ? (
       <StationsPagination
         stations={searchResults}
         title={
@@ -103,9 +108,9 @@ export default function StationBrowser() {
         <StationsPagination
           stations={recentClicks}
           title="Recent Clicks"
-          limit={5}
+          limit={10}
         />
-        <StationsPagination stations={topVotes} title="Top Votes" limit={5} />
+        <StationsPagination stations={topVotes} title="Top Votes" limit={10} />
       </>
     );
 
@@ -181,7 +186,7 @@ export default function StationBrowser() {
       <h3 className="text-3xl p-2">Find Stations</h3>
       <div className="w-full flex flex-col sm:flex-row justify-between gap-2">
         <form
-          className="sm:w-8/12 flex bg-white rounded-full p-2 gap-2"
+          className="sm:w-8/12 flex bg-white rounded-full p-2 gap-2 border-2 border-black layer-0"
           onSubmit={handleFormSubmit}
         >
           <IconSearch />
@@ -194,13 +199,13 @@ export default function StationBrowser() {
           />
         </form>
         <div className="flex items-center justify-between gap-2">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 border-2 border-black layer-0 rounded-full p-2">
             <label htmlFor="sortBy" className="text-nowrap">
               Sort By:
             </label>
             <select
               onChange={handleSortByChange}
-              className="focus-visible:outline-none rounded-full p-2"
+              className="focus-visible:outline-none rounded-full"
               name="sortBy"
             >
               {Object.keys(sortOptions).map((option) => (
@@ -209,7 +214,7 @@ export default function StationBrowser() {
             </select>
           </div>
           <button
-            className="p-2 bg-slate-100 rounded-full"
+            className="p-2 bg-purple-400 rounded-full border-2 border-black layer-0"
             onClick={() => setShowFilters(!showFilters)}
           >
             <IconFilterCog />
@@ -217,15 +222,16 @@ export default function StationBrowser() {
         </div>
       </div>
       {showFilters && (
-        <div className="flex flex-col bg-slate-100 p-2 rounded-xl gap-2">
+        <div className="flex flex-col bg-slate-100 p-2 rounded-xl gap-2 layer-0 border-2 border-black">
           <h4 className="text-lg font-bold">Filter Options</h4>
           <div className="tags flex flex-col gap-2">
             <label htmlFor="tags">Tags:</label>
-            <div className="tag-box flex flex-wrap  items-center gap-1 bg-white rounded-xl overflow-hidden p-2">
+            <div className="tag-box flex flex-wrap  items-center gap-1 bg-white rounded-full overflow-hidden p-2 border border-black layer-0">
+              <IconTags />
               {tagList?.map((tag, i) => (
                 <div
                   key={tag + i}
-                  className="tag bg-green-200 rounded-full px-2 text-sm flex items-center"
+                  className="tag bg-green-200 rounded-full px-2 text-sm flex items-center border border-black layer-0"
                 >
                   <span>{tag}</span>
                   <button onClick={() => removeTag(tag)}>
@@ -237,7 +243,7 @@ export default function StationBrowser() {
                 <input
                   type="text"
                   name="tag"
-                  className="rounded-full focus:outline-none w-24"
+                  className="rounded-full focus:outline-none flex-1"
                   value={tagInput}
                   onChange={handleTagChange}
                   placeholder="Tag"
@@ -250,7 +256,7 @@ export default function StationBrowser() {
               <label htmlFor="bitrate">
                 Bitrate: {bitrateMin} - {bitrateMax}
               </label>
-              <div className="range-control flex h-full">
+              <div className="range-control flex h-full  border border-black layer-0 rounded-full">
                 <input
                   type="range"
                   name="bitrateMin"
@@ -273,11 +279,11 @@ export default function StationBrowser() {
                 />
               </div>
             </div>
-            <div className="codec gap-2 flex-1 flex flex-col">
+            <div className="codec gap-2 flex-1 flex flex-col ">
               <label htmlFor="codec">Codec:</label>
               <select
                 name="codec"
-                className="w-full rounded-full bg-white focus:outline-none"
+                className="w-full rounded-full bg-white focus:outline-none border border-black layer-0"
                 onChange={handleCodecChange}
                 value={codecSelect}
               >
@@ -292,7 +298,7 @@ export default function StationBrowser() {
             <label htmlFor="language">Language:</label>
             <select
               name="language"
-              className="w-full rounded-full bg-white focus:outline-none"
+              className="w-full rounded-full bg-white focus:outline-none border border-black layer-0"
               onChange={handleLanguageChange}
               value={language}
             >
@@ -306,7 +312,7 @@ export default function StationBrowser() {
             <label htmlFor="country">Country:</label>
             <select
               name="country"
-              className="w-full rounded-full bg-white focus:outline-none"
+              className="w-full rounded-full bg-white focus:outline-none border border-black layer-0"
               onChange={handleCountryChange}
               value={country}
             >
