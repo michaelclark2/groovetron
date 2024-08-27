@@ -84,7 +84,7 @@ function StationTags({ station }: { station: Station }) {
 }
 
 export default function StationCard({ station }: { station: Station }) {
-  const RadioBrowser = useRadioBrowser();
+  const { RadioBrowser } = useRadioBrowser();
   const { userData, addToFaves, removeFromFaves } = useUserData();
   const { nowPlaying, setNowPlaying } = usePlayer();
   const isStationNowPlaying = station.id === nowPlaying?.id;
