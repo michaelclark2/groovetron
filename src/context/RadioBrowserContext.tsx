@@ -15,6 +15,7 @@ const RadioBrowserContext = createContext(
 );
 export function RadioBrowserProvider({ children }: { children: any }) {
   const RadioBrowser = new RadioBrowserApi(`${name}/${version}`);
+  RadioBrowser.setBaseUrl("https://de1.api.radio-browser.info");
   const [recentClicks, setRecentClicks] = useState<Station[]>([]);
   const [topVotes, setTopVotes] = useState<Station[]>([]);
   const [languages, setLanguages] = useState([] as CountryResult[]);
