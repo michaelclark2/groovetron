@@ -16,7 +16,11 @@ import Marquee from "react-fast-marquee";
 import { useUserData } from "../context/UserContext";
 
 function StationTitle({ station }: { station: Station }) {
-  return <h2 className="text-xl sm:text-2xl font-bold">{station?.name}</h2>;
+  return (
+    <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold">
+      {station?.name}
+    </h2>
+  );
 }
 
 export default function NowPlaying() {
@@ -65,7 +69,7 @@ export default function NowPlaying() {
 
   const renderOptions = () => {
     const baseStyles =
-      "rounded-full p-1 flex justify-center items-center  border-2 border-black layer-0 ";
+      "rounded-full p-1 flex justify-center items-center border-2 border-black max-w-8 max-h-8 layer-0 ";
 
     return (
       <>
@@ -133,7 +137,10 @@ export default function NowPlaying() {
                   loop={shouldMarquee ? 0 : 1}
                   onMount={checkMarqueeSize}
                 >
-                  <p id="currentTrack" className="overflow-hidden mr-6">
+                  <p
+                    id="currentTrack"
+                    className="overflow-hidden mr-6 lg:text-lg"
+                  >
                     {songPlaying}
                   </p>
                 </Marquee>
