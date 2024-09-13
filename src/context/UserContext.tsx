@@ -18,6 +18,12 @@ export function UserContextProvider({ children }: { children: any }) {
   const [userData, setUserData] = useState(new UserData());
 
   useEffect(() => {
+    if (Object.keys(userData).includes("songs")) {
+      //@ts-ignore
+      userData.tracks = userData.songs;
+      //@ts-ignore
+      delete userData.songs;
+    }
     if (userData?.favs.length > 0 || userData?.tracks.length > 0) {
       saveUserDataToLocalStorage(userData);
     }

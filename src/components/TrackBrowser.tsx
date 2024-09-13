@@ -7,7 +7,7 @@ export default function TrackBrowser() {
     <div className="flex flex-col gap-6 rounded-xl p-2">
       <h3 className="text-3xl p-2">Saved Tracks</h3>
       <div className="w-full flex flex-col gap-4">
-        {userData?.songs?.map((song: Track) => (
+        {userData?.tracks?.map((song: Track) => (
           <div className="flex flex-col w-full bg-white p-2 rounded-xl">
             <h3 className="font-bold text-xl py-2">{song.station.name}</h3>
             <p className="pb-2">{song.track}</p>
