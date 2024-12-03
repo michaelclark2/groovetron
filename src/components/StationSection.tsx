@@ -69,9 +69,6 @@ function Tab({
     <li
       ref={ref}
       onClick={() => {
-        setSectionState(name);
-      }}
-      onMouseEnter={() => {
         if (!ref?.current || tabIsActive) return;
 
         const currentRef: HTMLElement = ref.current;
@@ -84,18 +81,10 @@ function Tab({
           height,
           opacity: 1,
         });
-      }}
-      onMouseLeave={() => {
-        if (!ref?.current || tabIsActive) return;
-
-        const currentRef: HTMLElement = ref.current;
-
-        const { width, height } = currentRef.getBoundingClientRect();
-
-        setPosition({ left: currentRef.offsetLeft, width, height, opacity: 0 });
+        setSectionState(name);
       }}
       className={
-        "relative z-10 text-sm font-bold p-2 px-4 sm:px-8 rounded-lg transition h-12 items-center flex cursor-pointer " +
+        "relative z-10 text-sm font-bold p-2 px-4 sm:px-8 rounded-lg transition hover:bg-primary-lite h-12 items-center flex cursor-pointer " +
         (tabIsActive && activeClasses)
       }
     >

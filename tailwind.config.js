@@ -11,7 +11,7 @@ export default {
     extend: {
       colors: {
         back: "#78D8D1",
-        primary: "#FF6F61",
+        primary: { lite: "#FFC0BA", DEFAULT: "#FF6F61" },
         secondary: "#C5A3FF",
         "secondary-alt": "#F5F775",
         accent: "#00FFFF",
