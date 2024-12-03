@@ -182,7 +182,7 @@ export default function StationBrowser() {
   } as { [key: string]: string };
 
   return (
-    <div className="flex flex-col gap-6 rounded-xl p-2">
+    <div className="flex flex-col gap-12 rounded-xl p-12">
       <h3 className="text-3xl p-2">Find Stations</h3>
       <div className="w-full flex flex-col sm:flex-row justify-between gap-2">
         <form

@@ -135,7 +135,7 @@ export default function NowPlaying({
     <>
       <div className="z-50 bg-back h-4 sticky -m-2 top-0 shadow-back shadow-[4px_4px]" />
       <div className="z-50 m-2 mx-auto truncate rounded-xl bg-white sticky top-2 border-4 border-black layer-1">
-        <div className="p-4 flex flex-col">
+        <div className="px-12 py-8 flex flex-col">
           <div className="flex items-start justify-between">
             <div className="flex-1 overflow-hidden NowPlayingTitle">
               <StationTitle station={nowPlaying} />
@@ -159,22 +159,14 @@ export default function NowPlaying({
                 </Marquee>
               )}
             </div>
-
-            <div className="hidden md:flex flex-col justify-between gap-2">
-              <div className="flex justify-between gap-2">
-                {renderOptions()}
-              </div>
-              <VolumeControls />
-            </div>
-          </div>
-
-          <div className="mt-4 md:hidden">
-            <div className="flex flex-col sm:flex-row gap-2">
-              <div className="flex justify-between xs:justify-normal gap-2 xs:mr-2">
-                {renderOptions()}
-              </div>
-              <div className="w-full">
-                <VolumeControls />
+            <div className="mt-8">
+              <div className="flex flex-col gap-8">
+                <div className="flex justify-between gap-2">
+                  {renderOptions()}
+                </div>
+                <div className="w-full">
+                  <VolumeControls />
+                </div>
               </div>
             </div>
           </div>
