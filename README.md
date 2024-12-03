@@ -22,4 +22,4 @@ install npm packages
 
 run netlify dev to start edge functions
 
-    netlify run dev
+    netlify dev
